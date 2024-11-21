@@ -1,7 +1,7 @@
 import React from 'react';
 import { Container, Grid, Card, CardContent, Typography, Box } from '@mui/material';
 import { Article, CalendarToday, Photo, Folder } from '@mui/icons-material';
-import Color from "../../../../theme/Color";
+import Color from "../../../../../theme/Color";
 
 const cardItems = [
     { href: "#courses", color: Color.yellow.main, icon: <Article fontSize="large" />, title: "Projectos" },

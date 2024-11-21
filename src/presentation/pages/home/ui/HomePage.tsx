@@ -7,16 +7,18 @@ import {
 import {
     Article, Work, ChildCare, BabyChangingStation, Elderly
 } from '@mui/icons-material';
-import CarouselSlide from "../../../components/CarouselSlide";
+import CarouselSlide from "./enterance/CarouselSlide";
 import img1 from '../../../../../src/assets/img/banner/slider-1/img-1.jpg';
 import img2 from '../../../../../src/assets/img/banner/slider-1/img-2.jpg';
 import img3 from '../../../../../src/assets/img/banner/slider-1/img-3.jpg';
 import img4 from '../../../../../src/assets/img/banner/slider-1/img-4.jpg';
-import TopColorBar from "./TopColorBar";
-import TopAppBar from "./TopAppBar";
-import TopNavBar from "./TopNavBar";
+import TopColorBar from "./enterance/TopColorBar";
+import TopAppBar from "./enterance/TopAppBar";
+import TopNavBar from "./enterance/TopNavBar";
 import {AppThemeProvider} from "../../../../theme/Theme";
-import CardGrid from "./CardGrid";
+import CardGrid from "./enterance/CardGrid";
+import {carouselSlideTexts} from "../../../../data/texts/CarouselSlideTexts";
+import ParallaxBox from "./social_responses/ParallaxBox";
 
 const Header: React.FC = () => {
 
@@ -81,26 +83,14 @@ const Header: React.FC = () => {
 
                 <CarouselSlide
                     autoSlide={true}
-                    autoSlideInterval={5000}
+                    autoSlideInterval={7500}
                     children={[img1, img2, img3, img4]}
-                    texts={["MainText1", "SubText1"],["MainText2", "SubText2"],["MainText2", "SubText2"]}
+                    texts={carouselSlideTexts}
                     cardGridComponent={<CardGrid/>}
                 />
 
                 {/* Call to Action */}
-                <Box py={9} sx={{ backgroundImage: `url('assets/img/background/background_convocatoria.jpg')`, backgroundSize: 'cover' }}>
-                    <Container>
-                        <Box textAlign="center" color="white">
-                            <Typography variant="h2">Convocatória Assembleia Geral</Typography>
-                            <Typography variant="subtitle1" sx={{ mt: 2 }}>
-                                Discussão e votação do Relatório e Contas relativo ao exercício de 2023
-                            </Typography>
-                            <Button variant="contained" color="error" sx={{ mt: 4 }} href="documentos_institucionais.html" target="_blank">
-                                <Article sx={{ mr: 1 }} /> Ver Mais
-                            </Button>
-                        </Box>
-                    </Container>
-                </Box>
+                <ParallaxBox/>
 
                 {/* Home Feature Section */}
                 <Box pt={9} pb={6}>

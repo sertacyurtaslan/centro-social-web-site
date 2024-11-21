@@ -1,8 +1,7 @@
 import React from "react";
 import { Box } from "@mui/material";
-import Colors from "../../../../theme/Color";
+import Colors from "../../../../../theme/Color";
 
-// Define the styles for the color bar
 const colorBarStyles = {
     display: "flex",
     justifyContent: "space-between",
@@ -19,8 +18,7 @@ const colors = [
     Colors.pink.main,
 ];
 
-// Functional component for the TopColorBar
-const TopColorBar = () => {
+const TopColorBar: React.FC = () => {
     return (
         <Box sx={colorBarStyles}>
             {Array.from({ length: 12 }, (_, index) => (

@@ -1,9 +1,9 @@
 import React from "react";
 import { AppBar, Box, Container, Toolbar } from "@mui/material";
 import { Home, List, FileCopy, People, CalendarMonth, Mail } from "@mui/icons-material";
-import TopBarMenu from "../../../components/TopBarMenu";
-import Colors from "../../../../theme/Color";
-import Logo from '../../../../assets/img/logo-school.png';
+import TopBarMenu from "./TopBarMenu";
+import Colors from "../../../../../theme/Color";
+import Logo from '../../../../../assets/img/logo-school.png';
 
 const TopNavBar = () => {
     return (

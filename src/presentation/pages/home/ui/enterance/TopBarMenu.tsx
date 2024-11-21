@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { MenuItem, ListItemText, Button, Typography, Box } from "@mui/material";
 import { SvgIconComponent } from "@mui/icons-material";
-import Type from "../../theme/Type";
+import Type from "../../../../../theme/Type";
 
 interface IProps {
     menuIcon?: SvgIconComponent;

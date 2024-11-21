@@ -7,7 +7,7 @@ import {
     Language,
     EmailRounded
 } from '@mui/icons-material';
-import Colors from "../../../../theme/Color";
+import Colors from "../../../../../theme/Color";
 
 const topBarStyles = {
     backgroundColor: Colors.topBarColor.main,
