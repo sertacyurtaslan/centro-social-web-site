@@ -18,9 +18,18 @@ const color = {
         main: "#EA77AD",
     },
 
+    gray: {
+        main: "#F8F8F8",
+    },
+
+    white:{
+        main: "#FFFFFF",
+    },
+
     topBarColor: {
         main: "#2F3C43",
-    }
+    },
+
 
 };
 

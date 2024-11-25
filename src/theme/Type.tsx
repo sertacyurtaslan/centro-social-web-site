@@ -1,30 +1,36 @@
 const Type = {
     typography: {
-        fontFamily: '"Noto Sans Display", sans-serif',
+        fontFamily: 'Dosis, sans-serif',
 
-        // Headings (Titles)
         displayLarge: {
-            fontFamily: '"Noto Sans Display", sans-serif',
+            fontFamily: 'Dosis, sans-serif',
             fontWeight: 600,
-            fontSize: '2.25rem', // 36px
+            fontSize: '3.25rem', // 36px
             lineHeight: '2.75rem', // 44px
         },
         displayMedium: {
-            fontFamily: '"Noto Sans Display", sans-serif',
-            fontWeight: 600,
-            fontSize: '1.875rem', // 30px
+            fontFamily: 'Dosis, sans-serif',
+            fontWeight: 550,
+            fontSize: '1.5rem', // 30px
             lineHeight: '2.25rem', // 36px
         },
         displaySmall: {
             fontFamily: '"Noto Sans Display", sans-serif',
-            fontWeight: 600,
-            fontSize: '1.5rem', // 24px
-            lineHeight: '2rem', // 32px
+            fontWeight: 450,
+            fontSize: '0.95rem', // 24px
+            lineHeight: '1.3rem', // 32px
+        },
+
+        headlineExtra: {
+            fontFamily: 'Dosis, sans-serif',
+            fontWeight: 500,
+            fontSize: '3.00rem', // 36px
+            lineHeight: '1.75rem', // 44px
         },
 
         // Headline Text
         headlineLarge: {
-            fontFamily: '"Noto Sans Display", sans-serif',
+            fontFamily: 'Dosis, sans-serif',
             fontWeight: 600,
             fontSize: '1.25rem', // 20px
             lineHeight: '1.75rem', // 28px
