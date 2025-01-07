@@ -1,46 +1,72 @@
-# Getting Started with Create React App
+# Centro Qualifica Application
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+The **Centro Qualifica Application** is a web-based platform designed to provide information and resources related to the Centro Qualifica do Centro Social de Ermesinde. The application aims to enhance the qualification levels of adults and youth, offering various educational programs and support services. It serves as a hub for users to learn about available courses, contact information, and project initiatives.
 
-## Available Scripts
+## Table of Contents
 
-In the project directory, you can run:
+- [Features](#features)
+- [Technologies Used](#technologies-used)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Folder Structure](#folder-structure)
+- [Contributing](#contributing)
+- [License](#license)
 
-### `npm start`
+## Features
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- **User-Friendly Interface**: The application provides an intuitive and responsive design, ensuring a seamless user experience across devices.
+- **Information Sections**: Detailed sections on objectives, target audiences, contact information, and available courses.
+- **Video Resources**: Embedded videos to provide additional information and insights into the programs offered.
+- **Contact Form**: A contact section that allows users to send inquiries directly through the application.
+- **Dynamic Content**: The application fetches data from a centralized features file, making it easy to update and manage content.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Technologies Used
 
-### `npm test`
+- **React**: A JavaScript library for building user interfaces.
+- **Material-UI**: A popular React UI framework that provides pre-designed components for faster development.
+- **Firebase**: Used for authentication and database services.
+- **Leaflet**: A JavaScript library for interactive maps.
+- **EmailJS**: A service to send emails directly from the client-side application.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Installation
 
-### `npm run build`
+To set up the project locally, follow these steps:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+1. **Clone the repository**:
+   ```bash
+   git clone https://github.com/yourusername/centro-qualifica.git
+   ```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+2. **Navigate to the project directory**:
+   ```bash
+   cd centro-qualifica
+   ```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+3. **Install dependencies**:
+   ```bash
+   npm install
+   ```
 
-### `npm run eject`
+4. **Set up Firebase**:
+   - Create a Firebase project and configure authentication and Firestore.
+   - Replace the Firebase configuration in `src/data/firebase/FirebaseConfig.js` with your project's credentials.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+5. **Run the application**:
+   ```bash
+   npm start
+   ```
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+6. **Open your browser** and navigate to `http://localhost:3000` to view the application.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+## Usage
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+Once the application is running, users can:
 
-## Learn More
+- Navigate through different sections to learn about the Centro Qualifica programs.
+- Watch embedded videos for more information.
+- Use the contact form to send inquiries or feedback.
+- Access project information and resources related to co-financed initiatives.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Folder Structure
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+The project is organized as follows:
