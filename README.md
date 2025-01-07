@@ -1,6 +1,6 @@
-# Centro Qualifica Application
+# Centro Social de Ermesinde Web Application
 
-The **Centro Qualifica Application** is a web-based platform designed to provide information and resources related to the Centro Qualifica do Centro Social de Ermesinde. The application aims to enhance the qualification levels of adults and youth, offering various educational programs and support services. It serves as a hub for users to learn about available courses, contact information, and project initiatives.
+It is a web-based platform designed to provide information and resources related to the Centro Qualifica do Centro Social de Ermesinde. The application aims to enhance the qualification levels of adults and youth, offering various educational programs and support services. It serves as a hub for users to learn about available courses, contact information, and project initiatives.
 
 ## Table of Contents
 
