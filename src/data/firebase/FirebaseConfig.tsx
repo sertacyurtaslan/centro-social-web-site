@@ -3,15 +3,16 @@ import {getAuth, GoogleAuthProvider} from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
 import { getFunctions } from 'firebase/functions';
+import {Credentials} from "../../assets/features/Credentials";
 
 const firebaseConfig = {
-    apiKey: "AIzaSyB_maRKCuZ2D9ZdqGOhF4pTxMx6NrXvPuw",
-    authDomain: "social-center-app.firebaseapp.com",
-    projectId: "social-center-app",
-    storageBucket: "social-center-app.firebasestorage.app",
-    messagingSenderId: "216296616231",
-    appId: "1:216296616231:web:574b52045d9c7d711bb902",
-    measurementId: "G-P16T8Q8999"
+    apiKey: Credentials.FIREBASE_API_KEY,
+    authDomain: Credentials.FIREBASE_AUTH_DOMAIN,
+    projectId: Credentials.FIREBASE_PROJECT_ID,
+    storageBucket: Credentials.FIREBASE_STORAGE_BUCKET,
+    messagingSenderId: Credentials.FIREBASE_MESSAGING_SENDER_ID,
+    appId: Credentials.FIREBASE_APP_ID,
+    measurementId: Credentials.FIREBASE_MEASUREMENT_ID
 };
 
 const app = initializeApp(firebaseConfig);
