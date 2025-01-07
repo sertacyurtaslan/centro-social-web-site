@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Box, Card, Container, Grid, Typography } from '@mui/material';
 import Type from "../../../../../theme/Type";
-import { Features } from "../../../../../data/feature/Features";
+import { Features } from "../../../../../assets/features/Features";
+import Color from "../../../../../theme/Color";
 
 const SocialResponses: React.FC = () => {
     const [inView, setInView] = useState<boolean[]>(new Array(Features.SOCIAL_RESPONSES.length).fill(false)); // Track visibility for each item
@@ -48,7 +49,7 @@ const SocialResponses: React.FC = () => {
                         mb: 8,
                     }}
                 >
-                    <Typography sx={{ typography: Type.typography.displayLarge }} color="error">
+                    <Typography sx={{ typography: Type.typography.displayLarge , color: Color.red.main }} >
                         Respostas Sociais
                     </Typography>
                 </Box>

@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import { Container, Grid, Box, Typography } from "@mui/material";
 import CounterItem from "./CounterItem";
 import backgroundImg from '../../../../../assets/img/background/countup-bg-img.jpg';
-import { Features } from "../../../../../data/feature/Features";
+import { Features } from "../../../../../assets/features/Features";
 import Type from "../../../../../theme/Type";
 
 const CounterSection: React.FC = () => {

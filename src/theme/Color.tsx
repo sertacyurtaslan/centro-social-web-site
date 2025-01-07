@@ -26,9 +26,21 @@ const color = {
         main: "#FFFFFF",
     },
 
+    navy:{
+        main: "#041419",
+    },
+
     topBarColor: {
         main: "#2F3C43",
     },
+
+    lightGreen: {
+        main: "#4CAF50"
+    },
+
+    lightBlue: {
+        main: "#2196F3"
+    }
 
 
 };

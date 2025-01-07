@@ -12,16 +12,14 @@ interface ParallaxBoxProps {
 }
 
 const ParallaxBox: React.FC<ParallaxBoxProps> = ({
-                                                     title = "Default Title",
-                                                     subtitle = "Default Subtitle",
-                                                     buttonLink = "#",
-                                                     buttonText = "Learn More",
-                                                     buttonIcon = <Article />,
-                                                     backgroundImage = "",
-                                                 }) => {
+    title = "Default Title",
+    subtitle = "Default Subtitle",
+    buttonLink = "#",
+    buttonText = "Learn More",
+    buttonIcon = <Article />,
+    backgroundImage = "",
+}) => {
     const [isInView, setIsInView] = useState<boolean>(false);
-
-    // Create a reference for the ParallaxBox container
     const boxRef = React.createRef<HTMLDivElement>();
 
     useEffect(() => {
@@ -29,11 +27,11 @@ const ParallaxBox: React.FC<ParallaxBoxProps> = ({
             (entries) => {
                 entries.forEach((entry) => {
                     if (entry.isIntersecting) {
-                        setIsInView(true); // Trigger the animation when in view
+                        setIsInView(true);
                     }
                 });
             },
-            { threshold: 0.5 } // Start when 50% of the box is visible
+            { threshold: 0.3 }
         );
 
         if (boxRef.current) observer.observe(boxRef.current);
@@ -45,25 +43,45 @@ const ParallaxBox: React.FC<ParallaxBoxProps> = ({
 
     return (
         <Box
-            py={9}
-            ref={boxRef} // Attach the ref
+            ref={boxRef}
             sx={{
-                backgroundImage: `url(${backgroundImage})`,
+                height: '500px',
+                width: '100%',
+                backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(${backgroundImage})`,
                 backgroundSize: "cover",
                 backgroundPosition: "center",
-                height: "350px",
-                backgroundAttachment: "fixed", // Keep the background fixed
-                color: "white",
+                backgroundAttachment: "fixed",
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                position: 'relative',
+                overflow: 'hidden',
+                marginTop: '20px',
+                marginBottom: '20px'
             }}
         >
-            <Container>
-                <Box textAlign="center">
+            <Container
+                sx={{
+                    position: 'relative',
+                    zIndex: 2,
+                    textAlign: 'center',
+                    color: 'white',
+                }}
+            >
+                <Box
+                    sx={{
+                        opacity: isInView ? 1 : 0,
+                        transform: isInView ? "translateY(0)" : "translateY(50px)",
+                        transition: "transform 1s ease-out, opacity 1s ease-out",
+                    }}
+                >
                     <Typography
                         variant="h2"
                         sx={{
-                            opacity: isInView ? 1 : 0,
-                            transform: isInView ? "translateY(0)" : "translateY(50px)", // Slide up effect
-                            transition: "transform 1s ease-out, opacity 1s ease-out", // Animation duration
+                            fontSize: { xs: '2rem', md: '3.5rem' },
+                            fontWeight: 'bold',
+                            marginBottom: 3,
+                            textShadow: '2px 2px 4px rgba(0,0,0,0.5)',
                         }}
                     >
                         {title}
@@ -71,10 +89,9 @@ const ParallaxBox: React.FC<ParallaxBoxProps> = ({
                     <Typography
                         variant="subtitle1"
                         sx={{
-                            mt: 2,
-                            opacity: isInView ? 1 : 0,
-                            transform: isInView ? "translateY(0)" : "translateY(50px)",
-                            transition: "transform 1s ease-out, opacity 1s ease-out", // Animation duration
+                            fontSize: { xs: '1rem', md: '1.5rem' },
+                            marginBottom: 4,
+                            textShadow: '1px 1px 2px rgba(0,0,0,0.5)',
                         }}
                     >
                         {subtitle}
@@ -82,16 +99,22 @@ const ParallaxBox: React.FC<ParallaxBoxProps> = ({
                     <Button
                         variant="contained"
                         color="error"
+                        size="large"
                         sx={{
-                            mt: 4,
-                            opacity: isInView ? 1 : 0,
-                            transform: isInView ? "translateY(0)" : "translateY(50px)",
-                            transition: "transform 1s ease-out, opacity 1s ease-out", // Animation duration
+                            padding: '12px 30px',
+                            fontSize: '1.1rem',
+                            textTransform: 'none',
+                            boxShadow: '0 4px 6px rgba(0,0,0,0.1)',
+                            '&:hover': {
+                                transform: 'translateY(-2px)',
+                                boxShadow: '0 6px 8px rgba(0,0,0,0.2)',
+                            },
+                            transition: 'all 0.3s ease',
                         }}
                         href={buttonLink}
                         target="_blank"
                     >
-                        {buttonIcon} <Box sx={{ width: 6 }} /> {buttonText}
+                        {buttonIcon} <Box sx={{ width: 8 }} /> {buttonText}
                     </Button>
                 </Box>
             </Container>

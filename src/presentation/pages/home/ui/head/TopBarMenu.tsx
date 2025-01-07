@@ -8,9 +8,10 @@ interface IProps {
     menuColor?: string;
     menuName: string;
     menuItems?: string[];
+    onClick: (menuItem?: string) => void; // onClick function for menu item
 }
 
-const TopBarMenu: React.FC<IProps> = ({ menuIcon: MenuIcon, menuColor, menuName, menuItems }) => {
+const TopBarMenu: React.FC<IProps> = ({ menuIcon: MenuIcon, menuColor, menuName, menuItems, onClick }) => {
     const [menuOpen, setMenuOpen] = useState(false);
 
     const handleMouseEnter = () => {
@@ -52,6 +53,7 @@ const TopBarMenu: React.FC<IProps> = ({ menuIcon: MenuIcon, menuColor, menuName,
                         backgroundColor: `${menuColor}CC`,
                     },
                 }}
+                onClick={() => onClick()} // Handle the click event for top bar menu
             >
                 {MenuIcon && <MenuIcon sx={{ fontSize: { xs: "20px", md: "24px" }, marginRight: "4px" }} />}
                 <Typography sx={{ fontSize: { xs: "10px", md: "12.5px" }, fontWeight: "bold", marginRight: "4px" }}>
@@ -86,10 +88,11 @@ const TopBarMenu: React.FC<IProps> = ({ menuIcon: MenuIcon, menuColor, menuName,
                             left: 0,
                         }}
                     />
+                    {/* Only render menu items if they are available */}
                     {menuItems?.map((item, index) => (
                         <MenuItem
                             key={index}
-                            onClick={handleMouseLeave}
+                            onClick={() => onClick(item)} // Pass the clicked menuItem
                             sx={{
                                 display: "flex",
                                 alignItems: "center",
@@ -121,5 +124,6 @@ const TopBarMenu: React.FC<IProps> = ({ menuIcon: MenuIcon, menuColor, menuName,
         </Box>
     );
 };
+
 
 export default TopBarMenu;

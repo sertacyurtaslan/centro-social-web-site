@@ -1,18 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { Container, Grid, Card, CardContent, Typography, Box } from '@mui/material';
-import { Article, CalendarToday, Photo, Folder } from '@mui/icons-material';
-import Color from "../../../../../theme/Color";
-
-const cardItems = [
-    { href: "#courses", color: Color.yellow.main, icon: <Article fontSize="large" />, title: "Projectos" },
-    { href: "#agenda", color: Color.green.main, icon: <CalendarToday fontSize="large" />, title: "Agenda" },
-    { href: "#galeria", color: Color.red.main, icon: <Photo fontSize="large" />, title: "Galeria" },
-    { href: "#noticias", color: Color.blue.main, icon: <Folder fontSize="large" />, title: "Noticias" },
-];
+import {Features} from "../../../../../assets/features/Features";
 
 const CardGrid = () => {
-    const [isInView, setIsInView] = useState<boolean[]>(new Array(cardItems.length).fill(false));
-    const cardRefs = cardItems.map(() => React.createRef<HTMLDivElement>());
+    const [isInView, setIsInView] = useState<boolean[]>(new Array(Features.CARD_ITEMS.length).fill(false));
+    const cardRefs = Features.CARD_ITEMS.map(() => React.createRef<HTMLDivElement>());
 
     useEffect(() => {
         const observer = new IntersectionObserver(
@@ -27,7 +19,7 @@ const CardGrid = () => {
                     }
                 });
             },
-            { threshold: 0.5 } // Kartın %50'si görünür olduğunda animasyonu başlat
+            { threshold: 0.5 }
         );
 
         cardRefs.forEach((ref) => {
@@ -44,7 +36,7 @@ const CardGrid = () => {
     return (
         <Container>
             <Grid container spacing={4} sx={{ position: "relative" }}>
-                {cardItems.map((item, index) => (
+                {Features.CARD_ITEMS.map((item, index) => (
                     <Grid
                         item
                         xs={12}
@@ -59,12 +51,12 @@ const CardGrid = () => {
                     >
                         <a href={item.href} style={{ textDecoration: 'none' }}>
                             <Box
-                                ref={cardRefs[index]}  // Attach ref to each card container
+                                ref={cardRefs[index]}
                                 sx={{
                                     position: 'relative',
-                                    transition: 'transform 1s ease-out, opacity 1s ease-out', // Animasyon süresi 1 saniye olarak ayarlandı
+                                    transition: 'transform 1s ease-out, opacity 1s ease-out',
                                     opacity: isInView[index] ? 1 : 0,
-                                    transform: isInView[index] ? 'translateY(0)' : 'translateY(50px)', // Başlangıçta alttan kayma
+                                    transform: isInView[index] ? 'translateY(0)' : 'translateY(50px)',
                                 }}
                             >
                                 <Card
@@ -98,7 +90,7 @@ const CardGrid = () => {
                                         }}
                                     >
                                         <Box sx={{ color: item.color, fontSize: 40 }}>
-                                            {item.icon}
+                                            {React.createElement(item.icon)}  {/* Call it as a component */}
                                         </Box>
                                     </Box>
                                     <CardContent sx={{ marginTop: '24px' }}>
