@@ -70,3 +70,35 @@ Once the application is running, users can:
 ## Folder Structure
 
 The project is organized as follows:
+
+```
+centro-qualifica/
+├── src/
+│   ├── assets/                # Static assets like images and animations
+│   ├── components/            # Reusable components
+│   ├── data/                  # Data fetching and configuration files
+│   ├── domain/                # Domain models
+│   ├── presentation/          # UI components and pages
+│   ├── theme/                 # Theme configuration
+│   ├── App.tsx                # Main application component
+│   └── index.tsx              # Entry point of the application
+├── public/                    # Public assets
+├── package.json               # Project metadata and dependencies
+└── README.md                  # Project documentation
+```
+
+## Contributing
+
+Contributions are welcome! If you would like to contribute to the project, please follow these steps:
+
+1. Fork the repository.
+2. Create a new branch (`git checkout -b feature/YourFeature`).
+3. Make your changes and commit them (`git commit -m 'Add some feature'`).
+4. Push to the branch (`git push origin feature/YourFeature`).
+5. Create a new Pull Request.
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+
+---
