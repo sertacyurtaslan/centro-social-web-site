@@ -9,6 +9,7 @@ import FooterSection from "../../../components/FooterSection";
 import { TopImageLine } from "../../../components/TopImageLine";
 import { Features } from "../../../../../assets/features/Features";
 import {Escolhas7gSection} from "./Escolhas7gSection";
+import CopyrightSection from "../../../components/CopyrightSection";
 
 export const Escolhas7gPage: React.FC = () => {
     const [loading, setLoading] = useState(true);
@@ -41,7 +42,8 @@ export const Escolhas7gPage: React.FC = () => {
                 <Escolhas7gSection/>
 
                 {/* Footer */}
-                <FooterSection />
+                <CopyrightSection/>
+
             </Box>
         </AppThemeProvider>
     );

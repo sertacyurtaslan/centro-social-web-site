@@ -74,19 +74,30 @@ export default function CarouselSlide({
     }, [autoSlide, autoSlideInterval]);
 
     return (
-        <Box sx={{ position: "relative", overflow: "hidden", height: "700px" }}>
-            {/* Carousel Container */}
+        <Box sx={{ 
+            position: "relative", 
+            overflow: "hidden",
+            height: { 
+                xs: "450px",  // Reduced height for mobile
+                sm: "550px", 
+                md: "700px" 
+            }
+        }}>
             <Box
                 sx={{
                     display: "flex",
                     transition: "opacity 0.5s ease-out",
                     width: "100%",
-                    height: "560px",
+                    height: { 
+                        xs: "350px",  // Reduced height for mobile
+                        sm: "450px", 
+                        md: "560px" 
+                    },
                     backgroundColor: "black",
                     position: "relative"
                 }}
             >
-                {children.map((slide, index, ) => (
+                {children.map((slide, index) => (
                     <Box
                         key={index}
                         sx={{
@@ -99,32 +110,65 @@ export default function CarouselSlide({
                             backgroundPosition: "center",
                             backgroundImage: `url(${slide})`,
                             opacity: index === curr ? 1 : 0,
-                            transition: "opacity 1s ease-out"
+                            transition: "opacity 1s ease-out",
+                            "&::after": {  // Add overlay for better text readability
+                                content: '""',
+                                position: "absolute",
+                                top: 0,
+                                left: 0,
+                                right: 0,
+                                bottom: 0,
+                                backgroundColor: "rgba(0,0,0,0.3)", // Dark overlay
+                            }
                         }}
                     >
                         {index === curr && (
                             <Box
                                 sx={{
                                     position: "absolute",
-                                    top: "32%",
+                                    top: { 
+                                        xs: "15%",  // Adjusted positioning for mobile
+                                        sm: "20%", 
+                                        md: "32%" 
+                                    },
                                     left: texts[curr].textPlacement,
                                     transform: "translateX(-50%)",
                                     color: "white",
                                     textAlign: "center",
-                                    width: "100%",
+                                    width: { 
+                                        xs: "90%",  // Narrower width on mobile
+                                        sm: "80%", 
+                                        md: "100%" 
+                                    },
+                                    padding: { 
+                                        xs: "0 10px", 
+                                        sm: "0 20px", 
+                                        md: 0 
+                                    },
                                     opacity: textVisible ? 1 : 0,
                                     transition: "opacity 0.5s ease-out",
+                                    zIndex: 1, // Ensure text is above the overlay
                                 }}
                             >
                                 <Typography
                                     sx={{
                                         typography: Type.typography.displayLarge,
-                                        fontSize: "45px",
+                                        fontSize: { 
+                                            xs: "20px",  // Smaller font on mobile
+                                            sm: "28px", 
+                                            md: "45px" 
+                                        },
+                                        lineHeight: { 
+                                            xs: 1.2,  // Tighter line height on mobile
+                                            sm: 1.3, 
+                                            md: 1.4 
+                                        },
                                         opacity: mainTextAnimation ? 1 : 0,
                                         transform: mainTextAnimation
                                             ? "translateY(0)"
                                             : "translateY(-30px)",
                                         transition: "opacity 0.5s ease, transform 0.5s ease",
+                                        textShadow: "2px 2px 4px rgba(0,0,0,0.3)", // Add shadow for better readability
                                     }}
                                 >
                                     {texts[curr].mainText}
@@ -132,15 +176,19 @@ export default function CarouselSlide({
                                 <Typography
                                     variant="h6"
                                     sx={{
-                                        top: "60px",
-                                        fontSize: "18px",
+                                        fontSize: { 
+                                            xs: "12px",  // Smaller font on mobile
+                                            sm: "14px", 
+                                            md: "18px" 
+                                        },
                                         fontWeight: "normal",
-                                        marginTop: "10px",
+                                        marginTop: { xs: "8px", sm: "10px" },
                                         opacity: subTextAnimation ? 1 : 0,
                                         transform: subTextAnimation
                                             ? "translateY(0)"
                                             : "translateY(-20px)",
                                         transition: "opacity 0.5s ease, transform 0.5s ease",
+                                        textShadow: "1px 1px 2px rgba(0,0,0,0.3)", // Add shadow for better readability
                                     }}
                                 >
                                     {texts[curr].subText}
@@ -151,18 +199,19 @@ export default function CarouselSlide({
                 ))}
             </Box>
 
-            {/* Arrows */}
+            {/* Navigation Arrows */}
             <Box
                 sx={{
                     position: "absolute",
                     top: "50%",
                     left: 0,
                     right: 0,
-                    display: "flex",
+                    display: { xs: "none", sm: "flex" },
                     justifyContent: "space-between",
                     alignItems: "center",
-                    p: 2,
-                    transform: "translateY(-120%)",
+                    px: { sm: 2, md: 3 },
+                    transform: "translateY(-50%)", // Center vertically
+                    zIndex: 2, // Ensure arrows are above the overlay
                 }}
             >
                 <IconButton
@@ -171,9 +220,10 @@ export default function CarouselSlide({
                         backgroundColor: "rgba(255, 255, 255, 0.8)",
                         color: "gray",
                         "&:hover": { backgroundColor: "white" },
+                        padding: { xs: "6px", sm: "8px", md: "12px" },
                     }}
                 >
-                    <ChevronLeft size={40} />
+                    <ChevronLeft size={24} />
                 </IconButton>
                 <IconButton
                     onClick={next}
@@ -181,20 +231,32 @@ export default function CarouselSlide({
                         backgroundColor: "rgba(255, 255, 255, 0.8)",
                         color: "gray",
                         "&:hover": { backgroundColor: "white" },
+                        padding: { xs: "6px", sm: "8px", md: "12px" },
                     }}
                 >
-                    <ChevronRight size={40} />
+                    <ChevronRight size={24} />
                 </IconButton>
             </Box>
 
-            {/* Kart Grid */}
+            {/* Card Grid */}
             <Box
                 sx={{
                     position: "absolute",
-                    bottom: "30px",
+                    bottom: { 
+                        xs: 0,  // Remove bottom spacing on mobile since cards are hidden
+                        sm: "15px", 
+                        md: "30px" 
+                    },
                     left: "50%",
                     transform: "translateX(-50%)",
                     width: "100%",
+                    padding: { 
+                        xs: 0,  // No padding needed on mobile
+                        sm: "0 15px", 
+                        md: 0 
+                    },
+                    display: { xs: 'none', sm: 'block' }, // Hide on mobile
+                    zIndex: 2,
                 }}
             >
                 {cardGridComponent}

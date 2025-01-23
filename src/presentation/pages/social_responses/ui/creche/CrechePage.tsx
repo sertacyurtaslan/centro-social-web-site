@@ -9,6 +9,7 @@ import FooterSection from "../../../components/FooterSection";
 import { TopImageLine } from "../../../components/TopImageLine";
 import { Features } from "../../../../../assets/features/Features";
 import {CrecheSection} from "./CrecheSection";
+import CopyrightSection from "../../../components/CopyrightSection";
 
 export const CrechePage: React.FC = () => {
     const [loading, setLoading] = useState(true);
@@ -40,7 +41,8 @@ export const CrechePage: React.FC = () => {
                 <CrecheSection/>
 
                 {/* Footer */}
-                <FooterSection />
+                <CopyrightSection/>
+
             </Box>
         </AppThemeProvider>
     );

@@ -1,5 +1,5 @@
 import React, {useEffect, useState, useRef} from 'react';
-import {Box} from '@mui/material';
+import {Box, Container, useTheme, useMediaQuery} from '@mui/material';
 import CarouselSlide from "./head/CarouselSlide";
 import img1 from '../../../../assets/img/banner/slider-1/img-1.jpg';
 import img2 from '../../../../assets/img/banner/slider-1/img-2.jpg';
@@ -28,6 +28,7 @@ import { auth } from '../../../../data/firebase/FirebaseConfig';
 import { onAuthStateChanged } from 'firebase/auth';
 import { firestore } from '../../../../data/firebase/FirebaseConfig';
 import { doc, getDoc } from 'firebase/firestore';
+import CopyrightSection from '../../components/CopyrightSection';
 
 const HomePage: React.FC = () => {
     const [loading, setLoading] = useState(true);
@@ -36,6 +37,8 @@ const HomePage: React.FC = () => {
         email: string | null;
         uid: string;
     } | null>(null);
+    const theme = useTheme();
+    const isDesktop = useMediaQuery(theme.breakpoints.up('sm'));
 
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, async (user) => {
@@ -72,66 +75,120 @@ const HomePage: React.FC = () => {
 
     return (
         <AppThemeProvider mode={"light"}>
-            <TopColorBar/>
-            <TopAppBar currentUser={currentUser} />
-            <TopNavBar/>
+            <Box sx={{ 
+                minHeight: '100vh',
+                overflow: 'hidden'
+            }}>
+                {/* Header Section - Sticky */}
+                <Box sx={{ 
+                    position: 'sticky',
+                    top: 0,
+                    zIndex: 1100,
+                    backgroundColor: 'white',
+                    boxShadow: '0 2px 4px rgba(0,0,0,0.1)', // Optional: adds subtle shadow
+                }}>
+                    <TopColorBar/>
+                    <TopAppBar currentUser={currentUser} />
+                    <TopNavBar/>
 
-            {/* Main Content Container */}
-            <Box>
-                {/* Preloader */}
-                {loading && (<LoadingOverlay/> )}
+                </Box>
 
-                {/* Content sections */}
+
+                {/* Main Content Container */}
                 <Box>
-                    {/* Image Carousel */}
-                    <CarouselSlide
-                        autoSlide={true}
-                        autoSlideInterval={7500}
-                        children={[img1, img2, img3, img4]}
-                        texts={Features.CAROUSEL}
-                        cardGridComponent={<CardGrid/>}
-                    />
+                    {/* Preloader */}
+                    {loading && (<LoadingOverlay/> )}
 
-                    {/* First Parallax */}
-                    <ParallaxBox
-                        title={Features.FIRST_PARALLAX.title}
-                        subtitle={Features.FIRST_PARALLAX.subTitle}
-                        buttonLink={Features.FIRST_PARALLAX.buttonLink}
-                        buttonText={Features.FIRST_PARALLAX.buttonText}
-                        buttonIcon={<Article/>}
-                        backgroundImage={imgBackground}
-                    />
+                    {/* Content sections */}
+                    <Box>
+                        {/* Image Carousel */}
+                        <CarouselSlide
+                            autoSlide={true}
+                            autoSlideInterval={7500}
+                            children={[img1, img2, img3, img4]}
+                            texts={Features.CAROUSEL}
+                            cardGridComponent={<CardGrid/>}
+                        />
 
-                    {/* Social Responses */}
-                    <SocialResponses/>
+                        {/* First Parallax - Responsive */}
+                        <Box sx={{ mt: { xs: 2, sm: 3, md: 4 } }}>
+                            <ParallaxBox
+                                title={Features.FIRST_PARALLAX.title}
+                                subtitle={Features.FIRST_PARALLAX.subTitle}
+                                buttonLink={Features.FIRST_PARALLAX.buttonLink}
+                                buttonText={Features.FIRST_PARALLAX.buttonText}
+                                buttonIcon={<Article/>}
+                                backgroundImage={imgBackground}
+                            />
+                        </Box>
 
-                    {/* Second Parallax */}
-                    <ParallaxBox
-                        title={Features.SECOND_PARALLAX.title}
-                        subtitle={Features.SECOND_PARALLAX.subTitle}
-                        buttonLink={Features.SECOND_PARALLAX.buttonLink}
-                        buttonText={Features.SECOND_PARALLAX.buttonText}
-                        buttonIcon={<MonitorHeart/>}
-                        backgroundImage={imgBackground2}
-                    />
+                        {/* Social Responses - Responsive */}
+                        <Container maxWidth="lg" sx={{ 
+                            py: { xs: 4, sm: 6, md: 8 },
+                            px: { xs: 2, sm: 3, md: 4 }
+                        }}>
+                            <SocialResponses/>
+                        </Container>
 
-                    {/* Projects Section */}
-                    <ProjectsSection/>
-                    <CounterSection/>
-                    <NewsSection/>
+                        {/* Second Parallax - Responsive */}
+                        <ParallaxBox
+                            title={Features.SECOND_PARALLAX.title}
+                            subtitle={Features.SECOND_PARALLAX.subTitle}
+                            buttonLink={Features.SECOND_PARALLAX.buttonLink}
+                            buttonText={Features.SECOND_PARALLAX.buttonText}
+                            buttonIcon={<MonitorHeart/>}
+                            backgroundImage={imgBackground2}
+                        />
 
-                    {/* Third Parallax */}
-                    <ParallaxBox
-                        title={Features.THIRD_PARALLAX.title}
-                        subtitle={Features.THIRD_PARALLAX.subTitle}
-                        buttonLink={Features.THIRD_PARALLAX.buttonLink}
-                        buttonText={Features.THIRD_PARALLAX.buttonText}
-                        buttonIcon={<EmojiTransportation/>}
-                        backgroundImage={imgBackground3}
-                    />
+                        {/* Projects Section - Responsive */}
+                        <Container maxWidth="lg" sx={{ 
+                            py: { xs: 4, sm: 6, md: 8 },
+                            px: { xs: 2, sm: 3, md: 4 }
+                        }}>
+                            <ProjectsSection/>
+                        </Container>
 
-                    <ContactSection/>
-                    <FooterSection/>
+                        {/* Counter Section - Responsive */}
+                        <Box sx={{ my: { xs: 4, sm: 6, md: 8 } }}>
+                            <CounterSection/>
+                        </Box>
+
+                        {/* News Section - Responsive */}
+                        <Container maxWidth="lg" sx={{ 
+                            py: { xs: 4, sm: 6, md: 8 },
+                            px: { xs: 2, sm: 3, md: 4 }
+                        }}>
+                            <NewsSection/>
+                        </Container>
+
+                        {/* Third Parallax - Responsive */}
+                        <ParallaxBox
+                            title={Features.THIRD_PARALLAX.title}
+                            subtitle={Features.THIRD_PARALLAX.subTitle}
+                            buttonLink={Features.THIRD_PARALLAX.buttonLink}
+                            buttonText={Features.THIRD_PARALLAX.buttonText}
+                            buttonIcon={<EmojiTransportation/>}
+                            backgroundImage={imgBackground3}
+                        />
+
+                        {/* Contact Section - Responsive */}
+                        <Container maxWidth="lg" sx={{ 
+                            py: { xs: 4, sm: 6, md: 8 },
+                            px: { xs: 2, sm: 3, md: 4 }
+                        }}>
+                            <ContactSection/>
+                        </Container>
+
+                        {/* Footer - Only show on desktop */}
+                        {isDesktop && (
+                            <Box sx={{ mt: { sm: 6, md: 8 } }}>
+                                <FooterSection/>
+                            </Box>
+                        )}
+
+                        {/* Copyright Section - Always visible */}
+                        <CopyrightSection/>
+                    </Box>
                 </Box>
             </Box>
         </AppThemeProvider>

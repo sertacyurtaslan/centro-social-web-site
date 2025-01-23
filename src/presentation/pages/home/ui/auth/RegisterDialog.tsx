@@ -27,9 +27,10 @@ import { auth } from '../../../../../data/firebase/FirebaseConfig';
 
 interface RegisterDialogProps {
     onClose: () => void;
+    onSwitchToLogin?: () => void;
 }
 
-const RegisterDialog: React.FC<RegisterDialogProps> = ({ onClose }) => {
+const RegisterDialog: React.FC<RegisterDialogProps> = ({ onClose, onSwitchToLogin }) => {
     const theme = useTheme();
     const navigate = useNavigate();
     const { registerUser, uiState, resetState } = HomeViewModel();
@@ -288,7 +289,7 @@ const RegisterDialog: React.FC<RegisterDialogProps> = ({ onClose }) => {
                     <Box mt={1} />
 
                     <Button
-                        onClick={() => navigate('/login')}
+                        onClick={onSwitchToLogin}
                         fullWidth
                         variant="outlined"
                         startIcon={<ArrowBack />}

@@ -9,6 +9,7 @@ import FooterSection from "../../../components/FooterSection";
 import { TopImageLine } from "../../../components/TopImageLine";
 import { Features } from "../../../../../assets/features/Features";
 import {HousecareSection} from "./HousecareSection";
+import CopyrightSection from "../../../components/CopyrightSection";
 
 export const HousecarePage: React.FC = () => {
     const [loading, setLoading] = useState(true);
@@ -40,7 +41,8 @@ export const HousecarePage: React.FC = () => {
                 <HousecareSection/>
 
                 {/* Footer */}
-                <FooterSection />
+                <CopyrightSection/>
+
             </Box>
         </AppThemeProvider>
     );

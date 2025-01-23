@@ -9,6 +9,7 @@ import LoadingOverlay from "../../../home/ui/head/LoadingOverlay";
 import FooterSection from "../../../components/FooterSection";
 import {TopImageLine} from "../../../components/TopImageLine";
 import {Features} from "../../../../../assets/features/Features";
+import CopyrightSection from '../../../components/CopyrightSection';
 
 const HistoryPage: React.FC = () => {
 
@@ -43,7 +44,7 @@ const HistoryPage: React.FC = () => {
                 <HistorySection/>
 
                 {/* Footer */}
-                <FooterSection/>
+                <CopyrightSection/>
             </Box>
         </AppThemeProvider>
 

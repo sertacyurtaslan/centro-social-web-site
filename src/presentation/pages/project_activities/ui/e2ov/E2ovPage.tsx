@@ -9,6 +9,7 @@ import FooterSection from "../../../components/FooterSection";
 import { TopImageLine } from "../../../components/TopImageLine";
 import { Features } from "../../../../../assets/features/Features";
 import {E2ovSection} from "./E2ovSection";
+import CopyrightSection from "../../../components/CopyrightSection";
 
 export const E2ovPage: React.FC = () => {
     const [loading, setLoading] = useState(true);
@@ -41,7 +42,8 @@ export const E2ovPage: React.FC = () => {
                 <E2ovSection/>
 
                 {/* Footer */}
-                <FooterSection />
+                <CopyrightSection/>
+
             </Box>
         </AppThemeProvider>
     );

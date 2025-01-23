@@ -45,27 +45,28 @@ const ParallaxBox: React.FC<ParallaxBoxProps> = ({
         <Box
             ref={boxRef}
             sx={{
-                height: '500px',
+                height: { xs: '400px', sm: '450px', md: '500px' },
                 width: '100%',
                 backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(${backgroundImage})`,
                 backgroundSize: "cover",
                 backgroundPosition: "center",
-                backgroundAttachment: "fixed",
+                backgroundAttachment: { xs: 'scroll', md: 'fixed' },
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
                 position: 'relative',
                 overflow: 'hidden',
-                marginTop: '20px',
-                marginBottom: '20px'
+                my: { xs: 2, sm: 3, md: 4 }
             }}
         >
             <Container
+                maxWidth="lg"
                 sx={{
                     position: 'relative',
                     zIndex: 2,
                     textAlign: 'center',
                     color: 'white',
+                    px: { xs: 2, sm: 3, md: 4 }
                 }}
             >
                 <Box
@@ -78,10 +79,11 @@ const ParallaxBox: React.FC<ParallaxBoxProps> = ({
                     <Typography
                         variant="h2"
                         sx={{
-                            fontSize: { xs: '2rem', md: '3.5rem' },
+                            fontSize: { xs: '1.75rem', sm: '2.5rem', md: '3.5rem' },
                             fontWeight: 'bold',
-                            marginBottom: 3,
+                            mb: { xs: 2, sm: 3 },
                             textShadow: '2px 2px 4px rgba(0,0,0,0.5)',
+                            px: { xs: 2, sm: 0 }
                         }}
                     >
                         {title}
@@ -89,9 +91,10 @@ const ParallaxBox: React.FC<ParallaxBoxProps> = ({
                     <Typography
                         variant="subtitle1"
                         sx={{
-                            fontSize: { xs: '1rem', md: '1.5rem' },
-                            marginBottom: 4,
+                            fontSize: { xs: '1rem', sm: '1.25rem', md: '1.5rem' },
+                            mb: { xs: 3, sm: 4 },
                             textShadow: '1px 1px 2px rgba(0,0,0,0.5)',
+                            px: { xs: 2, sm: 0 }
                         }}
                     >
                         {subtitle}
@@ -101,8 +104,8 @@ const ParallaxBox: React.FC<ParallaxBoxProps> = ({
                         color="error"
                         size="large"
                         sx={{
-                            padding: '12px 30px',
-                            fontSize: '1.1rem',
+                            padding: { xs: '8px 20px', sm: '10px 25px', md: '12px 30px' },
+                            fontSize: { xs: '0.9rem', sm: '1rem', md: '1.1rem' },
                             textTransform: 'none',
                             boxShadow: '0 4px 6px rgba(0,0,0,0.1)',
                             '&:hover': {
@@ -114,7 +117,9 @@ const ParallaxBox: React.FC<ParallaxBoxProps> = ({
                         href={buttonLink}
                         target="_blank"
                     >
-                        {buttonIcon} <Box sx={{ width: 8 }} /> {buttonText}
+                        {buttonIcon} 
+                        <Box sx={{ width: { xs: 4, sm: 6, md: 8 } }} /> 
+                        {buttonText}
                     </Button>
                 </Box>
             </Container>

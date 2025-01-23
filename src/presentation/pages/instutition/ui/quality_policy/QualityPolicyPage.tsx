@@ -9,6 +9,7 @@ import FooterSection from "../../../components/FooterSection";
 import { TopImageLine } from "../../../components/TopImageLine";
 import { Features } from "../../../../../assets/features/Features";
 import {QualityPolicySection} from "./QualityPolicySection";
+import CopyrightSection from "../../../components/CopyrightSection";
 
 export const QualityPolicyPage: React.FC = () => {
     const [loading, setLoading] = useState(true);
@@ -41,7 +42,8 @@ export const QualityPolicyPage: React.FC = () => {
                 <QualityPolicySection/>
 
                 {/* Footer */}
-                <FooterSection />
+                <CopyrightSection/>
+
             </Box>
         </AppThemeProvider>
     );

@@ -9,6 +9,7 @@ import {TopImageLine} from "../../components/TopImageLine";
 import ContactsSection from "./ContactsSection";
 import FooterSection from "../../components/FooterSection";
 import {Features} from "../../../../assets/features/Features";
+import CopyrightSection from "../../components/CopyrightSection";
 
 export const ContactsPage: React.FC = () => {
     const [loading, setLoading] = useState(true);
@@ -41,7 +42,7 @@ export const ContactsPage: React.FC = () => {
                 <ContactsSection/>
 
                 {/* Footer */}
-                <FooterSection />
+                <CopyrightSection/>
             </Box>
         </AppThemeProvider>
     );

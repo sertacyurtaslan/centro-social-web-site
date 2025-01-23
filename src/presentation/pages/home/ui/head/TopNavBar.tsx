@@ -17,20 +17,40 @@ const TopNavBar = () => {
     };
 
     return (
-        <AppBar position="sticky" color="default" sx={{ height: "126px", justifyContent: "center" }}>
+        <AppBar position="sticky" color="default" sx={{ 
+            height: { xs: "auto", sm: "126px" }, // Auto height on mobile
+            justifyContent: "center" 
+        }}>
             <Container disableGutters>
                 <Toolbar
                     sx={{
                         display: "flex",
+                        flexDirection: { xs: "column", sm: "row" }, // Stack vertically on mobile
                         justifyContent: "space-between",
                         alignItems: "center",
+                        py: { xs: 2, sm: 0 }, // Add padding on mobile
+                        gap: { xs: 2, sm: 0 }, // Add gap on mobile
                     }}
                 >
                     {/* Logo */}
-                    <Box component="img" src={Logo} alt="Logo" sx={{ height: 50, width: 200 }} />
+                    <Box 
+                        component="img" 
+                        src={Logo} 
+                        alt="Logo" 
+                        sx={{ 
+                            height: { xs: 40, sm: 50 }, // Smaller logo on mobile
+                            width: { xs: 160, sm: 200 } // Smaller logo width on mobile
+                        }} 
+                    />
 
                     {/* Menu */}
-                    <Box sx={{ display: "flex", gap: 1.2 }}>
+                    <Box sx={{ 
+                        display: "flex", 
+                        gap: { xs: 0.8, sm: 1.2 },
+                        flexWrap: "wrap", // Allow wrapping on mobile
+                        justifyContent: "center", // Center items on mobile
+                        px: { xs: 1, sm: 0 } // Add padding on mobile
+                    }}>
                         <TopBarMenu
                             menuIcon={Home}
                             menuColor={Colors.yellow.main}

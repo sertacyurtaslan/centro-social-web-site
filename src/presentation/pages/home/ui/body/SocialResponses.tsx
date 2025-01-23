@@ -38,38 +38,50 @@ const SocialResponses: React.FC = () => {
     }, [refs]);
 
     return (
-        <Box pt={9} pb={6}>
-            <Container sx={{ height: "465px" }}>
+        <Box pt={{ xs: 0, sm: 2, md: 4 }} pb={{ xs: 4, sm: 5, md: 6 }}>
+            <Container sx={{ 
+                height: { xs: "auto", sm: "465px" }, // Auto height on mobile
+                maxWidth: { xs: '100%', sm: 'lg' },
+                px: { xs: 2, sm: 3 }
+            }}>
                 <Box
                     sx={{
                         opacity: inView[0] ? 1 : 0,
-                        transform: inView[0] ? 'translateY(0)' : 'translateY(50px)', // Slide up effect for the title
-                        transition: 'transform 1s ease-out, opacity 1s ease-out', // Animation duration
+                        transform: inView[0] ? 'translateY(0)' : 'translateY(50px)',
+                        transition: 'transform 1s ease-out, opacity 1s ease-out',
                         textAlign: 'center',
-                        mb: 8,
+                        mb: { xs: 2, sm: 3, md: 4 }, // Further reduced margin bottom of title
                     }}
                 >
-                    <Typography sx={{ typography: Type.typography.displayLarge , color: Color.red.main }} >
+                    <Typography 
+                        sx={{ 
+                            typography: Type.typography.displayLarge,
+                            color: Color.red.main,
+                            fontSize: { xs: '24px', sm: '32px', md: '40px' } // Responsive font size
+                        }}
+                    >
                         Respostas Sociais
                     </Typography>
                 </Box>
-                <Grid container spacing={3}>
+                <Grid container spacing={{ xs: 2, sm: 3 }}> {/* Reduced spacing on mobile */}
                     {Features.SOCIAL_RESPONSES.map((feature, index) => (
                         <Grid item xs={12} sm={6} md={4} key={index}>
                             <Box
-                                ref={refs[index]} // Attach ref to each item
+                                ref={refs[index]}
                                 sx={{
                                     opacity: inView[index] ? 1 : 0,
-                                    transform: inView[index] ? 'translateY(0)' : 'translateY(50px)', // Slide up effect
-                                    transition: 'transform 1s ease-out, opacity 1s ease-out', // Animation duration
+                                    transform: inView[index] ? 'translateY(0)' : 'translateY(50px)',
+                                    transition: 'transform 1s ease-out, opacity 1s ease-out',
+                                    mb: { xs: 2, sm: 0 } // Add margin bottom on mobile
                                 }}
                             >
                                 <Card sx={{
                                     display: 'flex',
-                                    alignItems: 'center',
+                                    alignItems: 'flex-start', // Align items to top
                                     flexDirection: 'row',
                                     backgroundColor: 'transparent',
                                     boxShadow: 'none',
+                                    p: { xs: 1, sm: 2 }, // Add padding on mobile
                                 }}>
                                     {/* Icon Circle */}
                                     <Box
@@ -80,33 +92,53 @@ const SocialResponses: React.FC = () => {
                                             display: 'flex',
                                             alignItems: 'center',
                                             justifyContent: 'center',
-                                            p: 2,
-                                            mb: 2,
+                                            p: { xs: 1.5, sm: 2 }, // Reduced padding on mobile
+                                            minWidth: { xs: '60px', sm: '80px' }, // Fixed width to prevent shifting
+                                            height: { xs: '60px', sm: '80px' }, // Fixed height to prevent shifting
+                                            flexShrink: 0, // Prevent icon from shrinking
                                         }}
                                     >
                                         <Box
                                             sx={{
-                                                width: 45,
-                                                height: 45,
+                                                width: { xs: 35, sm: 45 },
+                                                height: { xs: 35, sm: 45 },
                                                 border: '2px solid white',
                                                 borderRadius: '50%',
                                                 display: 'flex',
                                                 alignItems: 'center',
                                                 justifyContent: 'center',
-                                                p: 0.5,
+                                                p: { xs: 0.4, sm: 0.5 },
+                                                '& svg': { // Style the icon directly
+                                                    fontSize: { xs: '20px', sm: '24px' }
+                                                }
                                             }}
                                         >
-                                            {/* Render the icon component correctly */}
                                             {React.createElement(feature.icon)}
                                         </Box>
                                     </Box>
 
                                     {/* Text Content */}
-                                    <Box sx={{ ml: 2 }}> {/* Added margin-left */}
-                                        <Typography sx={{ typography: Type.typography.displayMedium, color: feature.color }}>
+                                    <Box sx={{ 
+                                        ml: { xs: 1.5, sm: 2 },
+                                        flex: 1, // Allow text to take remaining space
+                                    }}>
+                                        <Typography 
+                                            sx={{ 
+                                                typography: Type.typography.displayMedium,
+                                                color: feature.color,
+                                                fontSize: { xs: '18px', sm: '20px', md: '24px' },
+                                                mb: { xs: 0.5, sm: 1 }
+                                            }}
+                                        >
                                             {feature.title}
                                         </Typography>
-                                        <Typography sx={{ typography: Type.typography.displaySmall }}>
+                                        <Typography 
+                                            sx={{ 
+                                                typography: Type.typography.displaySmall,
+                                                fontSize: { xs: '14px', sm: '16px' },
+                                                lineHeight: { xs: 1.4, sm: 1.6 }
+                                            }}
+                                        >
                                             {feature.text}
                                         </Typography>
                                     </Box>

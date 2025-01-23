@@ -35,36 +35,80 @@ const CounterSection: React.FC = () => {
 
     return (
         <Box
-            ref={counterSectionRef}  // Attach ref here
+            ref={counterSectionRef}
             sx={{
-                py: 9,
-                pb: 8,
-                height: '500px',
-                backgroundImage:  `url(${backgroundImg || 'default-background.jpg'})`,
+                py: { xs: 4, sm: 6, md: 9 },
+                pb: { xs: 4, sm: 6, md: 8 },
+                height: { xs: 'auto', sm: '500px' },
+                minHeight: { xs: '600px', sm: '500px' },
+                backgroundImage: `url(${backgroundImg || 'default-background.jpg'})`,
                 backgroundSize: "cover",
                 backgroundPosition: "center",
-                backgroundAttachment: "fixed",
+                backgroundAttachment: { xs: "scroll", sm: "fixed" },
+                position: 'relative',
+                '&::before': {
+                    content: '""',
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    bottom: 0,
+                    backgroundColor: 'rgba(0,0,0,0.5)',
+                    zIndex: 1
+                }
             }}
         >
-            <Container>
-                <Box textAlign="center" mb={7}>
-                    <Typography color="white" sx={{ typography: Type.typography.headlineExtra }}>
+            <Container sx={{ position: 'relative', zIndex: 2 }}>
+                <Box 
+                    textAlign="center" 
+                    mb={{ xs: 4, sm: 5, md: 7 }}
+                    px={{ xs: 2, sm: 0 }}
+                >
+                    <Typography 
+                        color="white" 
+                        sx={{ 
+                            typography: Type.typography.headlineExtra,
+                            fontSize: { xs: '24px', sm: '28px', md: '32px' },
+                            mb: { xs: 1, sm: 2 }
+                        }}
+                    >
                         Centro Social Ermesinde
                     </Typography>
                     <Typography
                         color="white"
-                        sx={{ mt: 2, typography: Type.typography.bodyLarge }}>
+                        sx={{ 
+                            mt: { xs: 1, sm: 2 }, 
+                            typography: Type.typography.bodyLarge,
+                            fontSize: { xs: '16px', sm: '18px', md: '20px' },
+                            px: { xs: 2, sm: 0 }
+                        }}
+                    >
                         Conheça melhor a nossa instituição
                     </Typography>
                 </Box>
-                <Grid container spacing={3}>
+                <Grid 
+                    container 
+                    spacing={{ xs: 2, sm: 3 }}
+                    sx={{
+                        justifyContent: 'center',
+                        px: { xs: 1, sm: 0 }
+                    }}
+                >
                     {Features.COUNTERS.map((feature, index) => (
-                        <Grid item xs={12} sm={3} key={index}>
+                        <Grid 
+                            item 
+                            xs={6}
+                            sm={3} 
+                            key={index}
+                            sx={{
+                                mb: { xs: 2, sm: 0 }
+                            }}
+                        >
                             <CounterItem
                                 count={feature.count}
                                 label={feature.label}
                                 bgColor={feature.bgColor}
-                                isInView={isInView}  // Pass visibility state as a prop
+                                isInView={isInView}
                             />
                         </Grid>
                     ))}

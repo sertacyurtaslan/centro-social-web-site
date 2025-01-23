@@ -21,10 +21,10 @@ interface TopAppBarProps {
 const topBarStyles = {
     backgroundColor: Colors.topBarColor.main,
     color: 'white',
-    paddingLeft: 18,
-    paddingRight: 22,
+    paddingLeft: { xs: 8, sm: 18 },
+    paddingRight: { xs: 8, sm: 22 },
     justifyContent: 'center',
-    height: '56px',
+    height: { xs: 'auto', sm: '56px' },
     boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
 };
 
@@ -93,12 +93,41 @@ const TopAppBar: React.FC<TopAppBarProps> = ({ currentUser }) => {
         }
     };
 
+    const handleSwitchToRegister = () => {
+        setOpenLoginDialog(false);
+        setOpenRegisterDialog(true);
+    };
+
+    const handleSwitchToLogin = () => {
+        setOpenRegisterDialog(false);
+        setOpenLoginDialog(true);
+    };
+
     return (
         <AppBar position="relative" sx={topBarStyles}>
-            <Toolbar sx={{ minHeight: '56px !important' }}>
+            <Toolbar 
+                sx={{ 
+                    minHeight: '56px !important',
+                    flexDirection: { xs: 'column', sm: 'row' },
+                    py: { xs: 1.5, sm: 0 },
+                    gap: { xs: 1.5, sm: 0 },
+                }}
+            >
                 {/* Left section with contact info */}
-                <Box sx={{ display: 'flex', flexGrow: 1, gap: 2 }}>
-                    <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                <Box sx={{ 
+                    display: 'flex', 
+                    flexGrow: { xs: 0, sm: 1 },
+                    gap: { xs: 1.5, sm: 2 },
+                    flexDirection: 'row',
+                    flexWrap: 'wrap',
+                    justifyContent: { xs: 'center', sm: 'flex-start' },
+                    width: { xs: '100%', sm: 'auto' },
+                }}>
+                    <Box sx={{ 
+                        display: 'flex', 
+                        gap: { xs: 1.5, sm: 2 },
+                        alignItems: 'center',
+                    }}>
                         <Box
                             component="a"
                             href="mailto:geral@cse.pt"
@@ -107,23 +136,22 @@ const TopAppBar: React.FC<TopAppBarProps> = ({ currentUser }) => {
                             <EmailRounded 
                                 sx={{ 
                                     color: '#FFD700',
-                                    marginRight: 1,
-                                    fontSize: '1.2rem'
+                                    marginRight: { xs: 0.75, sm: 1 },
+                                    fontSize: { xs: '1.1rem', sm: '1.2rem' }
                                 }} 
                             />
                             <Typography 
                                 variant="body2" 
                                 sx={{ 
                                     color: 'white',
+                                    fontSize: { xs: '0.85rem', sm: '0.875rem' },
                                     '&:hover': { color: '#FFD700' }
                                 }}
                             >
                                 geral@cse.pt
                             </Typography>
                         </Box>
-                    </Box>
 
-                    <Box sx={{ display: 'flex', alignItems: 'center' }}>
                         <Box
                             component="a"
                             href="tel:229747194"
@@ -132,23 +160,22 @@ const TopAppBar: React.FC<TopAppBarProps> = ({ currentUser }) => {
                             <Phone 
                                 sx={{ 
                                     color: '#4CAF50',
-                                    marginRight: 1,
-                                    fontSize: '1.2rem'
+                                    marginRight: { xs: 0.75, sm: 1 },
+                                    fontSize: { xs: '1.1rem', sm: '1.2rem' }
                                 }} 
                             />
                             <Typography 
                                 variant="body2" 
                                 sx={{ 
                                     color: 'white',
+                                    fontSize: { xs: '0.85rem', sm: '0.875rem' },
                                     '&:hover': { color: '#4CAF50' }
                                 }}
                             >
                                 229747194
                             </Typography>
                         </Box>
-                    </Box>
 
-                    <Box sx={{ display: 'flex', alignItems: 'center' }}>
                         <Box
                             component="a"
                             href="https://www.facebook.com/centrosocialdeermesinde/?epa=SEARCH_BOX"
@@ -159,13 +186,14 @@ const TopAppBar: React.FC<TopAppBarProps> = ({ currentUser }) => {
                             <Facebook 
                                 sx={{ 
                                     color: '#4267B2',
-                                    marginRight: 1,
-                                    fontSize: '1.2rem'
+                                    marginRight: { xs: 0.75, sm: 1 },
+                                    fontSize: { xs: '1.1rem', sm: '1.2rem' }
                                 }} 
                             />
                             <Typography 
                                 sx={{ 
                                     color: 'white',
+                                    fontSize: { xs: '0.85rem', sm: '0.875rem' },
                                     '&:hover': { color: '#4267B2' }
                                 }}
                             >
@@ -176,18 +204,32 @@ const TopAppBar: React.FC<TopAppBarProps> = ({ currentUser }) => {
                 </Box>
 
                 {/* Right section with login/signup or logout */}
-                <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                <Box sx={{ 
+                    display: 'flex', 
+                    alignItems: 'center',
+                    justifyContent: { xs: 'center', sm: 'flex-end' },
+                    gap: { xs: 1.5, sm: 2 },
+                    width: { xs: '100%', sm: 'auto' },
+                }}>
                     {currentUser ? (
-                        <>
+                        <Box sx={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: { xs: 1.5, sm: 2 },
+                            flexDirection: { xs: 'column', sm: 'row' },
+                        }}>
                             <Typography 
                                 sx={{ 
                                     color: 'white',
                                     display: 'flex',
                                     alignItems: 'center',
-                                    gap: 1
+                                    gap: 1,
+                                    fontSize: { xs: '0.85rem', sm: '1rem' },
+                                    whiteSpace: 'nowrap',
+                                    textAlign: { xs: 'center', sm: 'left' }
                                 }}
                             >
-                                <Person sx={{ fontSize: '1.2rem' }} />
+                                <Person sx={{ fontSize: { xs: '1.1rem', sm: '1.2rem' } }} />
                                 {`Bem-vindo, `}
                                 <Typography 
                                     component="span" 
@@ -205,6 +247,8 @@ const TopAppBar: React.FC<TopAppBarProps> = ({ currentUser }) => {
                                 color="inherit"
                                 sx={{
                                     ...buttonStyles,
+                                    fontSize: { xs: '0.85rem', sm: '0.875rem' },
+                                    padding: { xs: '5px 14px', sm: '6px 16px' },
                                     background: 'linear-gradient(45deg, #FF4444, #CC0000)',
                                     '&:hover': {
                                         background: 'linear-gradient(45deg, #CC0000, #AA0000)',
@@ -212,18 +256,24 @@ const TopAppBar: React.FC<TopAppBarProps> = ({ currentUser }) => {
                                         boxShadow: '0 2px 5px rgba(0,0,0,0.2)',
                                     },
                                 }}
-                                startIcon={<Logout />}
+                                startIcon={<Logout sx={{ fontSize: { xs: '1.1rem', sm: '1.2rem' } }} />}
                                 onClick={handleLogout}
                             >
                                 Log out
                             </Button>
-                        </>
+                        </Box>
                     ) : (
-                        <>
+                        <Box sx={{ 
+                            display: 'flex', 
+                            gap: { xs: 1.5, sm: 2 },
+                            justifyContent: 'center',
+                        }}>
                             <Button
                                 color="inherit"
                                 sx={{
                                     ...buttonStyles,
+                                    fontSize: { xs: '0.85rem', sm: '0.875rem' },
+                                    padding: { xs: '5px 14px', sm: '6px 16px' },
                                     background: 'linear-gradient(45deg, #4CAF50, #45a049)',
                                     '&:hover': {
                                         background: 'linear-gradient(45deg, #45a049, #388E3C)',
@@ -231,7 +281,7 @@ const TopAppBar: React.FC<TopAppBarProps> = ({ currentUser }) => {
                                         boxShadow: '0 2px 5px rgba(0,0,0,0.2)',
                                     },
                                 }}
-                                startIcon={<Login />}
+                                startIcon={<Login sx={{ fontSize: { xs: '1.1rem', sm: '1.2rem' } }} />}
                                 onClick={handleOpenLoginDialog}
                             >
                                 Entrar
@@ -240,6 +290,8 @@ const TopAppBar: React.FC<TopAppBarProps> = ({ currentUser }) => {
                                 color="inherit"
                                 sx={{
                                     ...buttonStyles,
+                                    fontSize: { xs: '0.85rem', sm: '0.875rem' },
+                                    padding: { xs: '5px 14px', sm: '6px 16px' },
                                     background: 'linear-gradient(45deg, #2196F3, #1976D2)',
                                     '&:hover': {
                                         background: 'linear-gradient(45deg, #1976D2, #1565C0)',
@@ -247,19 +299,29 @@ const TopAppBar: React.FC<TopAppBarProps> = ({ currentUser }) => {
                                         boxShadow: '0 2px 5px rgba(0,0,0,0.2)',
                                     },
                                 }}
-                                startIcon={<Person />}
+                                startIcon={<Person sx={{ fontSize: { xs: '1.1rem', sm: '1.2rem' } }} />}
                                 onClick={handleOpenRegisterDialog}
                             >
                                 Criar Conta
                             </Button>
-                        </>
+                        </Box>
                     )}
                 </Box>
             </Toolbar>
 
             {/* Dialogs for registration and login */}
-            {openRegisterDialog && <RegisterDialog onClose={handleCloseRegisterDialog} />}
-            {openLoginDialog && <LoginDialog onClose={handleCloseLoginDialog} />}
+            {openRegisterDialog && (
+                <RegisterDialog 
+                    onClose={handleCloseRegisterDialog}
+                    onSwitchToLogin={handleSwitchToLogin}
+                />
+            )}
+            {openLoginDialog && (
+                <LoginDialog 
+                    onClose={handleCloseLoginDialog}
+                    onSwitchToRegister={handleSwitchToRegister}
+                />
+            )}
         </AppBar>
     );
 };

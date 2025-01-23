@@ -121,42 +121,6 @@ const FooterSection: React.FC = () => {
                     </Grid>
                 </Grid>
             </Box>
-
-            {/* Copyright Section */}
-            <Box
-                sx={{
-                    backgroundColor: Color.navy.main,
-                    height: "65px",
-                    alignContent: "center",
-                    pl: 25,
-                    pr: 30
-                }}
-            >
-                <Grid container alignItems="center" justifyContent="space-between">
-                    <Grid item xs={12} sm={7}>
-                        <Typography variant="body2" color="white">
-                            © 2019 Copyright Centro Social Ermesinde
-                        </Typography>
-                    </Grid>
-                    <Grid item xs={12} sm={5}>
-                        <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
-                            <IconButton
-                                href="https://www.facebook.com/centrosocialdeermesinde/?epa=SEARCH_BOX"
-                                target="_blank"
-                            >
-                                <FacebookOutlined />
-                            </IconButton>
-                            <IconButton
-                                href="https://www.linkedin.com/company/centro-social-de-ermesinde/about/"
-                                target="_blank"
-                            >
-                                <LinkedIn />
-                            </IconButton>
-                        </Box>
-                    </Grid>
-                </Grid>
-            </Box>
-
         </Box>
     );
 };

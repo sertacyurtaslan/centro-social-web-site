@@ -20,9 +20,10 @@ import Type from "../../../../../theme/Type";
 
 interface LoginDialogProps {
     onClose: () => void;
+    onSwitchToRegister?: () => void;
 }
 
-const LoginDialog: React.FC<LoginDialogProps> = ({ onClose }) => {
+const LoginDialog: React.FC<LoginDialogProps> = ({ onClose, onSwitchToRegister }) => {
     const navigate = useNavigate();
     const { loginUser, uiState, isProcessing, resetState } = HomeViewModel();
     const [email, setEmail] = useState('');
@@ -262,7 +263,7 @@ const LoginDialog: React.FC<LoginDialogProps> = ({ onClose }) => {
 
                 <Box my={1}>
                     <Button
-                        onClick={() => navigate('/register')}
+                        onClick={onSwitchToRegister}
                         variant="outlined"
                         sx={{ color: Color.lightGreen.main }}
                         fullWidth

@@ -34,19 +34,32 @@ const CardGrid = () => {
     }, [cardRefs]);
 
     return (
-        <Container>
-            <Grid container spacing={4} sx={{ position: "relative" }}>
+        <Container 
+            maxWidth="lg" 
+            sx={{ 
+                display: { xs: 'none', sm: 'block' } // Hide on mobile (xs), show on sm and up
+            }}
+        >
+            <Grid 
+                container 
+                spacing={{ xs: 1, sm: 2, md: 4 }} 
+                sx={{ 
+                    position: "relative",
+                    justifyContent: "center",
+                    px: { xs: 1, sm: 2 }
+                }}
+            >
                 {Features.CARD_ITEMS.map((item, index) => (
                     <Grid
                         item
-                        xs={12}
+                        xs={6}
                         sm={6}
                         md={3}
                         key={index}
                         sx={{
                             display: 'flex',
                             justifyContent: 'center',
-                            marginBottom: '20px',
+                            marginBottom: { xs: '8px', sm: '15px', md: '20px' },
                         }}
                     >
                         <a href={item.href} style={{ textDecoration: 'none' }}>
@@ -63,51 +76,58 @@ const CardGrid = () => {
                                     sx={{
                                         backgroundColor: item.color,
                                         color: "white",
-                                        height: '190px',
-                                        width: '260px',
+                                        height: { xs: '100px', sm: '160px', md: '190px' },
+                                        width: { xs: '100px', sm: '200px', md: '260px' },
                                         textAlign: 'center',
                                         overflow: 'hidden',
-                                        borderRadius: '16px',
-                                        paddingTop: '40px',
+                                        borderRadius: { xs: '12px', sm: '16px' },
+                                        paddingTop: { xs: '20px', sm: '35px', md: '40px' },
                                         boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)',
                                     }}
                                 >
                                     <Box
                                         sx={{
                                             position: 'absolute',
-                                            top: '-40px',
+                                            top: { xs: '-15px', sm: '-30px', md: '-40px' },
                                             left: '50%',
                                             transform: 'translateX(-50%)',
-                                            width: '80px',
-                                            height: '80px',
+                                            width: { xs: '30px', sm: '60px', md: '80px' },
+                                            height: { xs: '30px', sm: '60px', md: '80px' },
                                             borderRadius: '50%',
                                             backgroundColor: 'white',
-                                            border: `4px solid ${item.color}`,
+                                            border: { xs: `2px solid ${item.color}`, sm: `4px solid ${item.color}` },
                                             display: 'flex',
                                             alignItems: 'center',
                                             justifyContent: 'center',
                                             zIndex: 1,
                                         }}
                                     >
-                                        <Box sx={{ color: item.color, fontSize: 40 }}>
-                                            {React.createElement(item.icon)}  {/* Call it as a component */}
+                                        <Box sx={{ 
+                                            color: item.color, 
+                                            fontSize: { xs: 16, sm: 30, md: 40 } 
+                                        }}>
+                                            {React.createElement(item.icon)}
                                         </Box>
                                     </Box>
-                                    <CardContent sx={{ marginTop: '24px' }}>
+                                    <CardContent sx={{ 
+                                        marginTop: { xs: '8px', sm: '20px', md: '24px' },
+                                        padding: { xs: '4px', sm: '16px', md: '16px' },
+                                        '&:last-child': { 
+                                            paddingBottom: { xs: '8px', sm: '16px' } 
+                                        }
+                                    }}>
                                         <Typography
                                             variant="h5"
                                             sx={{
                                                 fontFamily: 'Dosis, sans-serif',
                                                 fontWeight: 700,
-                                                fontSize: '24px',
-                                                marginBottom: '12px',
+                                                fontSize: { xs: '12px', sm: '20px', md: '24px' },
+                                                marginBottom: { xs: '4px', sm: '10px', md: '12px' },
+                                                lineHeight: { xs: 1.2, sm: 1.5 },
                                             }}
                                         >
                                             {item.title}
                                         </Typography>
-                                        <a href={item.href} className="btn-scroll-down" style={{ color: 'white' }}>
-                                            <i className="fa fa-chevron-down" aria-hidden="true"></i>
-                                        </a>
                                     </CardContent>
                                 </Card>
                             </Box>
