@@ -4,8 +4,10 @@ import CounterItem from "./CounterItem";
 import backgroundImg from '../../../../../assets/img/background/countup-bg-img.jpg';
 import { Features } from "../../../../../assets/features/Features";
 import Type from "../../../../../theme/Type";
+import { useLanguage } from '../../../../../context/LanguageContext';
 
 const CounterSection: React.FC = () => {
+    const { language } = useLanguage();
     const [isInView, setIsInView] = useState(false);
     const counterSectionRef = useRef<HTMLDivElement>(null);
 
@@ -72,7 +74,7 @@ const CounterSection: React.FC = () => {
                             mb: { xs: 1, sm: 2 }
                         }}
                     >
-                        Centro Social Ermesinde
+                        {Features.COUNTERS.title[language]}
                     </Typography>
                     <Typography
                         color="white"
@@ -83,7 +85,7 @@ const CounterSection: React.FC = () => {
                             px: { xs: 2, sm: 0 }
                         }}
                     >
-                        Conheça melhor a nossa instituição
+                        {Features.COUNTERS.subtitle[language]}
                     </Typography>
                 </Box>
                 <Grid 
@@ -94,7 +96,7 @@ const CounterSection: React.FC = () => {
                         px: { xs: 1, sm: 0 }
                     }}
                 >
-                    {Features.COUNTERS.map((feature, index) => (
+                    {Features.COUNTERS.items.map((feature, index) => (
                         <Grid 
                             item 
                             xs={6}
@@ -106,7 +108,7 @@ const CounterSection: React.FC = () => {
                         >
                             <CounterItem
                                 count={feature.count}
-                                label={feature.label}
+                                label={feature.label[language]}
                                 bgColor={feature.bgColor}
                                 isInView={isInView}
                             />

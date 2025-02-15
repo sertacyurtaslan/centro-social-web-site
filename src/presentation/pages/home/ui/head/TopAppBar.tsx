@@ -9,6 +9,11 @@ import Color from "../../../../../theme/Color";
 import HomeViewModel from "../../viewmodel/HomeViewModel";
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from "../../../../../data/firebase/FirebaseConfig";
+import LanguageSwitch from '../../../../components/LanguageSwitch';
+import { Features } from '../../../../../assets/features/Features';
+import { useLanguage } from '../../../../../context/LanguageContext';
+import { Language } from '../../../../../types/LanguageTypes';
+import { useAuth } from '../../../../../context/AuthContext';
 
 interface TopAppBarProps {
     currentUser?: {
@@ -64,10 +69,12 @@ const contactLinkStyles = {
     },
 };
 
-const TopAppBar: React.FC<TopAppBarProps> = ({ currentUser }) => {
+const TopAppBar: React.FC<TopAppBarProps> = ({  }) => {
     const [openRegisterDialog, setOpenRegisterDialog] = useState(false);
     const [openLoginDialog, setOpenLoginDialog] = useState(false);
     const { logoutUser } = HomeViewModel();
+    const { currentUser } = useAuth();
+    const { language } = useLanguage() as { language: Language };
 
     const handleOpenRegisterDialog = () => {
         setOpenRegisterDialog(true);
@@ -230,7 +237,7 @@ const TopAppBar: React.FC<TopAppBarProps> = ({ currentUser }) => {
                                 }}
                             >
                                 <Person sx={{ fontSize: { xs: '1.1rem', sm: '1.2rem' } }} />
-                                {`Bem-vindo, `}
+                                {Features.MENU.welcome.name[language]}
                                 <Typography 
                                     component="span" 
                                     sx={{ 
@@ -259,14 +266,14 @@ const TopAppBar: React.FC<TopAppBarProps> = ({ currentUser }) => {
                                 startIcon={<Logout sx={{ fontSize: { xs: '1.1rem', sm: '1.2rem' } }} />}
                                 onClick={handleLogout}
                             >
-                                Log out
+                                {Features.MENU.logout.name[language]}
                             </Button>
                         </Box>
                     ) : (
                         <Box sx={{ 
                             display: 'flex', 
-                            gap: { xs: 1.5, sm: 2 },
-                            justifyContent: 'center',
+                            gap: 0.2,
+                            alignItems: 'center',
                         }}>
                             <Button
                                 color="inherit"
@@ -284,7 +291,7 @@ const TopAppBar: React.FC<TopAppBarProps> = ({ currentUser }) => {
                                 startIcon={<Login sx={{ fontSize: { xs: '1.1rem', sm: '1.2rem' } }} />}
                                 onClick={handleOpenLoginDialog}
                             >
-                                Entrar
+                                {Features.MENU.login.name[language]}
                             </Button>
                             <Button
                                 color="inherit"
@@ -302,10 +309,13 @@ const TopAppBar: React.FC<TopAppBarProps> = ({ currentUser }) => {
                                 startIcon={<Person sx={{ fontSize: { xs: '1.1rem', sm: '1.2rem' } }} />}
                                 onClick={handleOpenRegisterDialog}
                             >
-                                Criar Conta
+                                {Features.MENU.register.name[language]}
                             </Button>
                         </Box>
                     )}
+                </Box>
+                <Box sx={{ flexGrow: 0, ml: 2 }}>
+                    <LanguageSwitch />
                 </Box>
             </Toolbar>
 

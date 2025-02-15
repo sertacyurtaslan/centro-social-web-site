@@ -3,12 +3,20 @@ import { Box, Card, Container, Grid, Typography } from '@mui/material';
 import Type from "../../../../../theme/Type";
 import { Features } from "../../../../../assets/features/Features";
 import Color from "../../../../../theme/Color";
+import { useLanguage } from '../../../../../context/LanguageContext';
+import { TranslatedText } from '../../../../../types/LanguageTypes';
+
+interface SocialResponse {
+    icon: any;
+    color: string;
+    title: TranslatedText;
+    text: TranslatedText;
+}
 
 const SocialResponses: React.FC = () => {
-    const [inView, setInView] = useState<boolean[]>(new Array(Features.SOCIAL_RESPONSES.length).fill(false)); // Track visibility for each item
-
-    // Create refs for each Grid item to observe visibility
-    const refs = Features.SOCIAL_RESPONSES.map(() => React.createRef<HTMLDivElement>());
+    const { language } = useLanguage();
+    const [inView, setInView] = useState<boolean[]>(new Array(Features.SOCIAL_RESPONSES.items.length).fill(false));
+    const refs = Features.SOCIAL_RESPONSES.items.map(() => React.createRef<HTMLDivElement>());
 
     useEffect(() => {
         const observer = new IntersectionObserver(
@@ -60,11 +68,11 @@ const SocialResponses: React.FC = () => {
                             fontSize: { xs: '24px', sm: '32px', md: '40px' } // Responsive font size
                         }}
                     >
-                        Respostas Sociais
+                        {Features.SOCIAL_RESPONSES.title[language]}
                     </Typography>
                 </Box>
                 <Grid container spacing={{ xs: 2, sm: 3 }}> {/* Reduced spacing on mobile */}
-                    {Features.SOCIAL_RESPONSES.map((feature, index) => (
+                    {Features.SOCIAL_RESPONSES.items.map((feature, index) => (
                         <Grid item xs={12} sm={6} md={4} key={index}>
                             <Box
                                 ref={refs[index]}
@@ -130,7 +138,7 @@ const SocialResponses: React.FC = () => {
                                                 mb: { xs: 0.5, sm: 1 }
                                             }}
                                         >
-                                            {feature.title}
+                                            {feature.title[language]}
                                         </Typography>
                                         <Typography 
                                             sx={{ 
@@ -139,7 +147,7 @@ const SocialResponses: React.FC = () => {
                                                 lineHeight: { xs: 1.4, sm: 1.6 }
                                             }}
                                         >
-                                            {feature.text}
+                                            {feature.text[language]}
                                         </Typography>
                                     </Box>
                                 </Card>

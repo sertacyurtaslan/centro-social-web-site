@@ -10,7 +10,9 @@ import {
     InputAdornment,
     IconButton,
     Snackbar,
-    Alert
+    Alert,
+    DialogTitle,
+    DialogActions
 } from '@mui/material';
 import { ArrowBack, Email, Lock, Person, Close, VisibilityOff, Visibility } from '@mui/icons-material';
 import { useTheme } from '@mui/material/styles';
@@ -24,6 +26,9 @@ import { sendVerificationCode } from '../../../../../utils/EmailVerification';
 import VerificationDialog from './VerificationDialog';
 import { isSignInWithEmailLink, signInWithEmailLink, createUserWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../../../../../data/firebase/FirebaseConfig';
+import { useLanguage } from '../../../../../context/LanguageContext';
+import { Language } from '../../../../../types/LanguageTypes';
+import { Features } from '../../../../../assets/features/Features';
 
 interface RegisterDialogProps {
     onClose: () => void;
@@ -34,11 +39,14 @@ const RegisterDialog: React.FC<RegisterDialogProps> = ({ onClose, onSwitchToLogi
     const theme = useTheme();
     const navigate = useNavigate();
     const { registerUser, uiState, resetState } = HomeViewModel();
+    const { language } = useLanguage() as { language: Language };
+    const { register } = Features.AUTH;
 
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [emailError, setEmailError] = useState<string | null>(null);
+    const [passwordError, setPasswordError] = useState<string | null>(null);
     const [showPassword, setShowPassword] = useState(false);
     const [openDialog, setOpenDialog] = useState(true);
     const [snackbarOpen, setSnackbarOpen] = useState(false);
@@ -64,6 +72,7 @@ const RegisterDialog: React.FC<RegisterDialogProps> = ({ onClose, onSwitchToLogi
         setEmail('');
         setPassword('');
         setEmailError(null);
+        setPasswordError(null);
         setShowPassword(false);
         setSnackbarOpen(false);
         setIsLoading(false);
@@ -176,6 +185,7 @@ const RegisterDialog: React.FC<RegisterDialogProps> = ({ onClose, onSwitchToLogi
                     }}
                 />
 
+
                 <DialogContent sx={{ padding: 3, width: '100%' }}>
                     <Box
                         sx={{
@@ -193,17 +203,19 @@ const RegisterDialog: React.FC<RegisterDialogProps> = ({ onClose, onSwitchToLogi
                     <Typography textAlign="center"
                                 sx={{ typography: Type.typography.displayMedium,
                                     color: Color.lightBlue.main, fontWeight: 'bold' }}>
-                        Inscreva-se
+                        {register.title[language]}
                     </Typography>
 
                     <Box mt={4} />
 
                     <TextField
-                        label="Nome"
+                        label={register.name.label[language]}
                         variant="outlined"
                         fullWidth
                         value={name}
                         onChange={(e) => setName(e.target.value)}
+                        error={!!emailError}
+                        helperText={emailError && register.name.error[language]}
                         InputProps={{
                             startAdornment: (
                                 <InputAdornment position="start">
@@ -216,7 +228,7 @@ const RegisterDialog: React.FC<RegisterDialogProps> = ({ onClose, onSwitchToLogi
                     <Box mt={2} />
 
                     <TextField
-                        label="E-mail"
+                        label={register.email.label[language]}
                         variant="outlined"
                         type={"email"}
                         fullWidth
@@ -226,7 +238,7 @@ const RegisterDialog: React.FC<RegisterDialogProps> = ({ onClose, onSwitchToLogi
                             setEmailError(null);
                         }}
                         error={!!emailError}
-                        helperText={emailError}
+                        helperText={emailError && register.email.error[language]}
                         InputProps={{
                             startAdornment: (
                                 <InputAdornment position="start">
@@ -239,12 +251,14 @@ const RegisterDialog: React.FC<RegisterDialogProps> = ({ onClose, onSwitchToLogi
                     <Box mt={2} />
 
                     <TextField
-                        label="Senha"
+                        label={register.password.label[language]}
                         type={showPassword ? 'text' : 'password'}
                         variant="outlined"
                         fullWidth
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
+                        error={!!passwordError}
+                        helperText={passwordError && register.password.error[language]}
                         InputProps={{
                             startAdornment: <InputAdornment position="start"><Lock color="action" /></InputAdornment>,
                             endAdornment: (
@@ -283,7 +297,7 @@ const RegisterDialog: React.FC<RegisterDialogProps> = ({ onClose, onSwitchToLogi
                         startIcon={<Person />}
                         disabled={!isFormValid || isLoading}
                     >
-                        Registrar
+                        {register.buttons.register[language]}
                     </Button>
 
                     <Box mt={1} />
@@ -294,7 +308,7 @@ const RegisterDialog: React.FC<RegisterDialogProps> = ({ onClose, onSwitchToLogi
                         variant="outlined"
                         startIcon={<ArrowBack />}
                     >
-                        Login
+                        {register.buttons.login[language]}
                     </Button>
 
                     {/* Registration Animation */}
@@ -348,6 +362,8 @@ const RegisterDialog: React.FC<RegisterDialogProps> = ({ onClose, onSwitchToLogi
                         </Alert>
                     </Snackbar>
                 </DialogContent>
+
+             
             </Dialog>
 
             {showVerificationDialog && (

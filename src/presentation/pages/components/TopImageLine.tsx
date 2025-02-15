@@ -2,11 +2,24 @@ import React from "react";
 import { Box, Breadcrumbs, Container, Link, Typography } from "@mui/material";
 import { ArrowForwardIos } from "@mui/icons-material";
 import Type from "../../../theme/Type";
+import { useLanguage } from '../../../context/LanguageContext';
 
-export const TopImageLine: React.FC<{
+interface Breadcrumb {
+    label: { pt: string; en: string; } | string;
+    link: string;
+}
+
+interface TopImageLineProps {
     topImage: string;
-    breadcrumbs: { label?: string; link?: string | undefined }[];
-}> = ({ topImage, breadcrumbs }) => {
+    breadcrumbs: Breadcrumb[];
+}
+
+export const TopImageLine: React.FC<TopImageLineProps> = ({ topImage, breadcrumbs }) => {
+    const { language } = useLanguage();
+
+    const getLabel = (label: { pt: string; en: string; } | string) => 
+        typeof label === 'object' ? label[language] : label;
+
     return (
         <Box
             sx={{
@@ -50,7 +63,7 @@ export const TopImageLine: React.FC<{
                             textShadow: "1px 1px 2px rgba(0, 0, 0, 0.8)", // Subtle text shadow
                         }}
                     >
-                        {breadcrumbs[1]?.label || "Default Title"}
+                        {getLabel(breadcrumbs[1]?.label)}
                     </Typography>
                 </Box>
 
@@ -78,7 +91,7 @@ export const TopImageLine: React.FC<{
                                     textDecoration:"none",
                                 }}
                             >
-                                {crumb.label}
+                                {getLabel(crumb.label)}
                             </Link>
                         ) : (
                             <Typography
@@ -89,7 +102,7 @@ export const TopImageLine: React.FC<{
                                     textDecoration:"none"
                                 }}
                             >
-                                {crumb.label}
+                                {getLabel(crumb.label)}
                             </Typography>
                         )
                     )}

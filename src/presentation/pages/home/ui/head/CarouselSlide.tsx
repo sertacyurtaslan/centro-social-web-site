@@ -2,12 +2,20 @@ import React, { useState, useEffect, useRef } from "react";
 import { ChevronLeft, ChevronRight } from "react-feather";
 import { Box, IconButton, Typography } from "@mui/material";
 import Type from "../../../../../theme/Type";
+import { useLanguage } from '../../../../../context/LanguageContext';
+import { KeyboardArrowDown } from '@mui/icons-material';
 
-interface CarouselProps {
-    children: React.ReactNode[];
+interface CarouselSlideProps {
+    children: string[];
     autoSlide?: boolean;
     autoSlideInterval?: number;
-    texts: { mainText: string; subText: string, textPlacement: string }[];
+    texts: {
+        items: Array<{
+            mainText: { pt: string; en: string };
+            subText: { pt: string; en: string };
+            textPlacement: string;
+        }>;
+    };
     cardGridComponent: React.ReactNode;
 }
 
@@ -17,7 +25,8 @@ export default function CarouselSlide({
                                           autoSlideInterval = 7500,
                                           texts,
                                           cardGridComponent,
-                                      }: CarouselProps) {
+                                      }: CarouselSlideProps) {
+    const { language } = useLanguage();
     const [curr, setCurr] = useState(0);
     const [mainTextAnimation, setMainTextAnimation] = useState(false);
     const [subTextAnimation, setSubTextAnimation] = useState(false);
@@ -131,7 +140,7 @@ export default function CarouselSlide({
                                         sm: "20%", 
                                         md: "32%" 
                                     },
-                                    left: texts[curr].textPlacement,
+                                    left: texts.items[curr].textPlacement,
                                     transform: "translateX(-50%)",
                                     color: "white",
                                     textAlign: "center",
@@ -171,7 +180,7 @@ export default function CarouselSlide({
                                         textShadow: "2px 2px 4px rgba(0,0,0,0.3)", // Add shadow for better readability
                                     }}
                                 >
-                                    {texts[curr].mainText}
+                                    {texts.items[curr].mainText[language]}
                                 </Typography>
                                 <Typography
                                     variant="h6"
@@ -191,7 +200,7 @@ export default function CarouselSlide({
                                         textShadow: "1px 1px 2px rgba(0,0,0,0.3)", // Add shadow for better readability
                                     }}
                                 >
-                                    {texts[curr].subText}
+                                    {texts.items[curr].subText[language]}
                                 </Typography>
                             </Box>
                         )}
@@ -243,7 +252,7 @@ export default function CarouselSlide({
                 sx={{
                     position: "absolute",
                     bottom: { 
-                        xs: 0,  // Remove bottom spacing on mobile since cards are hidden
+                        xs: 0,
                         sm: "15px", 
                         md: "30px" 
                     },
@@ -251,12 +260,46 @@ export default function CarouselSlide({
                     transform: "translateX(-50%)",
                     width: "100%",
                     padding: { 
-                        xs: 0,  // No padding needed on mobile
+                        xs: 0,
                         sm: "0 15px", 
                         md: 0 
                     },
-                    display: { xs: 'none', sm: 'block' }, // Hide on mobile
+                    display: { xs: 'none', sm: 'block' },
                     zIndex: 2,
+                    '& .MuiCard-root': {
+                        transition: 'all 0.3s ease-in-out',
+                        position: 'relative',
+                        '&:hover': {
+                            transform: 'translateY(-8px) scale(1.03)',
+                            boxShadow: '0 8px 20px rgba(0,0,0,0.2)',
+                            '& .circle-icon': {
+                                transform: 'translateX(-50%) scale(1.03)',
+                            },
+                            '& .arrow-icon': {
+                                opacity: 1,
+                                transform: 'translateY(0)',
+                            },
+                            '& .card-title': {
+                                marginBottom: '4px'
+                            }
+                        }
+                    },
+                    '& .circle-icon': {
+                        position: 'absolute',
+                        top: { xs: '-15px', sm: '-30px', md: '-40px' },
+                        left: '50%',
+                        transform: 'translateX(-50%)',
+                        transition: 'all 0.3s ease-in-out',
+                        zIndex: 2
+                    },
+                    '& .arrow-icon': {
+                        opacity: 0,
+                        transform: 'translateY(-10px)',
+                        transition: 'all 0.3s ease-in-out'
+                    },
+                    '& .card-title': {
+                        transition: 'all 0.3s ease-in-out'
+                    }
                 }}
             >
                 {cardGridComponent}

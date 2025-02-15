@@ -15,7 +15,7 @@ const CustomInputBox: React.FC = () => {
         >
             <TextField
                 variant="outlined"
-                placeholder="Endereço email"
+                placeholder="Email"
                 fullWidth
                 sx={{
                     backgroundColor: "white", // Set background color to white

@@ -1,12 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { Box, Typography } from '@mui/material';
 import { CheckCircle, Warning } from '@mui/icons-material';
+import { useLanguage } from '../../../context/LanguageContext';
+import { Language } from '../../../types/LanguageTypes';
+import { Features } from '../../../assets/features/Features';
 
 interface PasswordValidatorProps {
     password: string;
 }
 
 const PasswordValidator: React.FC<PasswordValidatorProps> = ({ password }) => {
+    const { language } = useLanguage() as { language: Language };
+    const { PASSWORD_VALIDATOR } = Features;
     const [isLengthValid, setIsLengthValid] = useState(false);
     const [containsSpecialChar, setContainsSpecialChar] = useState(false);
 
@@ -16,14 +21,16 @@ const PasswordValidator: React.FC<PasswordValidatorProps> = ({ password }) => {
     }, [password]);
 
     return (
-        <Box sx={{ paddingLeft: 2 }}>
+        <Box sx={styles.container}>
             <Box sx={styles.row}>
                 {isLengthValid ? (
                     <CheckCircle sx={{ color: 'green' }} />
                 ) : (
                     <Warning sx={{ color: 'red' }} />
                 )}
-                <Typography sx={styles.text}>Pelo menos 10 caracteres</Typography>
+                <Typography sx={styles.text}>
+                    {PASSWORD_VALIDATOR.requirements.length[language]}
+                </Typography>
             </Box>
 
             <Box sx={styles.row}>
@@ -32,13 +39,18 @@ const PasswordValidator: React.FC<PasswordValidatorProps> = ({ password }) => {
                 ) : (
                     <Warning sx={{ color: 'red' }} />
                 )}
-                <Typography sx={styles.text}>Contém um caractere especial</Typography>
+                <Typography sx={styles.text}>
+                    {PASSWORD_VALIDATOR.requirements.specialChar[language]}
+                </Typography>
             </Box>
         </Box>
     );
 };
 
 const styles = {
+    container: {
+        paddingLeft: 2,
+    },
     row: {
         display: 'flex',
         alignItems: 'center',

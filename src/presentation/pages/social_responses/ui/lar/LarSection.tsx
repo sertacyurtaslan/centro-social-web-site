@@ -1,8 +1,12 @@
 import { Box, Container, Grid, Typography } from "@mui/material";
 import React from "react";
 import { Features } from "../../../../../assets/features/Features";
+import { useLanguage } from "../../../../../context/LanguageContext";
+import { Language } from "../../../../../types/LanguageTypes";
 
 export const LarSection = () => {
+    const { language } = useLanguage() as { language: Language };
+    
     const { title, content, image } = Features.LAR;
 
     return (
@@ -60,9 +64,9 @@ export const LarSection = () => {
                                         }
                                     }}
                                 >
-                                    {title}
+                                    {title[language]}
                                 </Typography>
-                                {content.map((paragraph, index) => (
+                                {content[language].map((paragraph: string, index: number) => (
                                     <Typography
                                         key={index}
                                         sx={{ 

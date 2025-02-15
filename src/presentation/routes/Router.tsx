@@ -18,6 +18,10 @@ import {E2ovPage} from "../pages/project_activities/ui/e2ov/E2ovPage";
 import {ContactsPage} from "../pages/contacts/ui/ContactsPage";
 import {CofinanciadosPage} from "../pages/project_activities/ui/cofinanciados/CofinanciadosPage";
 import { CentroQualificaPage } from '../pages/project_activities/ui/centro_qualifica/CentroQualificaPage';
+import AdminPage from '../pages/admin/ui/AdminPage';   
+import ProtectedRoute from './ProtectedRoute';
+import YouthExchangePage from '../pages/project_activities/ui/youth_exchange/YouthExchangePage';
+import MovePage from '../pages/project_activities/ui/move/MovePage';
 
 const Router: React.FC = () => {
     return (
@@ -40,6 +44,16 @@ const Router: React.FC = () => {
             <Route path="/cofinanciados" element={<CofinanciadosPage/>} />
             <Route path="/centro_qualifica" element={<CentroQualificaPage/>} />
             <Route path="/contactos" element={<ContactsPage />} />
+            <Route
+                path="/admin"
+                element={
+                    <ProtectedRoute>
+                        <AdminPage />
+                    </ProtectedRoute>
+                } 
+            />
+            <Route path="/youth_exchange" element={<YouthExchangePage />} />
+            <Route path="/move" element={<MovePage />} />
         </Routes>
     );
 };

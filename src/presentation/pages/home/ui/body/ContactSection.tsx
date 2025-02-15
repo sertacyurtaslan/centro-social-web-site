@@ -2,8 +2,13 @@ import React, { useState } from 'react';
 import { Box, Container, Grid, Typography, TextField, Button, FormControlLabel, Checkbox, Link, Snackbar, Alert } from '@mui/material';
 import { Map, Mail, Phone, Person, Message } from '@mui/icons-material';
 import emailjs from '@emailjs/browser';
+import { useLanguage } from '../../../../../context/LanguageContext';
+import { Language } from '../../../../../types/LanguageTypes';
+import { Features } from '../../../../../assets/features/Features';
 
 const ContactSection = () => {
+    const { language } = useLanguage() as { language: Language };
+    const { CONTACT } = Features;
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [message, setMessage] = useState('');
@@ -49,10 +54,10 @@ const ContactSection = () => {
                     <Grid item xs={12} sm={6}>
                         <Box>
                             <Typography variant="h4" color="error" gutterBottom>
-                                Contacto
+                                {CONTACT.title[language]}
                             </Typography>
                             <Typography variant="body1" color="textSecondary" paragraph>
-                                Utilize o nosso formulário para entrar em contacto connosco
+                                {CONTACT.subtitle[language]}
                             </Typography>
                             <Box>
                                 <Box display="flex" alignItems="center" mb={3}>
@@ -71,7 +76,7 @@ const ContactSection = () => {
                                         <Map sx={{ color: 'white' }} />
                                     </Box>
                                     <Typography variant="body1">
-                                        Rua Rodrigues de Freitas, 2200 4445-637 Ermesinde
+                                        {CONTACT.contact.address[language]}
                                     </Typography>
                                 </Box>
                                 <Box display="flex" alignItems="center" mb={3}>
@@ -125,7 +130,7 @@ const ContactSection = () => {
                         <Box component="form" onSubmit={handleSubmit}>
                             <TextField
                                 fullWidth
-                                label="Nome (opcional)"
+                                label={CONTACT.form.name.label[language]}
                                 variant="outlined"
                                 margin="normal"
                                 value={name}
@@ -138,7 +143,7 @@ const ContactSection = () => {
                             />
                             <TextField
                                 fullWidth
-                                label="Email"
+                                label={CONTACT.form.email.label[language]}
                                 variant="outlined"
                                 margin="normal"
                                 required
@@ -152,7 +157,7 @@ const ContactSection = () => {
                             />
                             <TextField
                                 fullWidth
-                                label="Mensagem"
+                                label={CONTACT.form.message.label[language]}
                                 variant="outlined"
                                 margin="normal"
                                 required
@@ -173,9 +178,9 @@ const ContactSection = () => {
                                     control={<Checkbox required />}
                                     label={
                                         <Typography variant="body2">
-                                            Li e aceito a{' '}
+                                            {CONTACT.form.privacy.text[language]}{' '}
                                             <Link href="politica_privacidade.html" target="_blank" underline="hover">
-                                                Politica de Privacidade
+                                                {CONTACT.form.privacy.link[language]}
                                             </Link>
                                         </Typography>
                                     }
@@ -189,7 +194,7 @@ const ContactSection = () => {
                                 type="submit"
                                 sx={{ mt: 3, float: 'right' }}
                             >
-                                Enviar Mensagem
+                                {CONTACT.form.submit[language]}
                             </Button>
                         </Box>
                     </Grid>

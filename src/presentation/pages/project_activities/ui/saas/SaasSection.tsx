@@ -1,23 +1,24 @@
 import { Box, Container, Grid, Typography } from "@mui/material";
 import React from "react";
 import { Features } from "../../../../../assets/features/Features";
+import { useLanguage } from '../../../../../context/LanguageContext';
+import { Language } from '../../../../../types/LanguageTypes';
 
 export const SaasSection = () => {
+    const { language } = useLanguage() as { language: Language };
     const { title, content, image } = Features.SAAS;
 
     return (
         <Box>
-            {/* İçerik Bölümü */}
             <Box sx={{ py: { xs: 7, md: 10 } }}>
                 <Container>
                     <Grid container spacing={4} alignItems="center">
-                        {/* Sol Bölüm - Görsel */}
                         <Grid item xs={12} md={6}>
                             <Box
                                 sx={{
                                     width: 500,
                                     height: 500,
-                                    mx: "auto", // Ortalamak için
+                                    mx: "auto", 
                                     backgroundImage: `url(${image})`,
                                     backgroundSize: "cover",
                                     backgroundPosition: "center",
@@ -26,13 +27,12 @@ export const SaasSection = () => {
                             />
                         </Grid>
 
-                        {/* Sağ Bölüm - Metin */}
                         <Grid item xs={12} md={6}>
                             <Box>
                                 <Typography variant="h4" sx={{ color: "info.main", fontWeight: "bold", mb: 3 }}>
-                                    {title}
+                                    {title[language]}
                                 </Typography>
-                                {content.map((paragraph, index) => (
+                                {content[language].map((paragraph: string, index: number) => (
                                     <Typography
                                         key={index}
                                         sx={{ color: "text.primary", textAlign: "justify", fontSize: 15, mb: 3 }}

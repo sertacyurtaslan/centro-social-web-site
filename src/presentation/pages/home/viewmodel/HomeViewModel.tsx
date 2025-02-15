@@ -145,11 +145,13 @@ function HomeViewModel() {
         try {
             if (!isValidEmail(email)) {
                 setUiState({ errorMessage: 'Por favor, insira um e-mail válido.' });
+                setIsProcessing(false); // Make sure to reset processing state
                 return null;
             }
 
             if (!password || password.length < 6) {
                 setUiState({ errorMessage: 'A senha deve ter pelo menos 6 caracteres.' });
+                setIsProcessing(false);
                 return null;
             }
 
@@ -158,6 +160,7 @@ function HomeViewModel() {
 
             if (!firebaseUser) {
                 setUiState({ errorMessage: 'Falha no login. Tente novamente.' });
+                setIsProcessing(false);
                 return null;
             }
 
@@ -165,9 +168,13 @@ function HomeViewModel() {
             
             if (!firestoreUser) {
                 setUiState({ errorMessage: 'Dados do usuário não encontrados.' });
+                setIsProcessing(false);
                 return null;
             }
 
+            // Add a small delay to show the success state
+            await new Promise(resolve => setTimeout(resolve, 1000));
+            
             return firebaseUser;
 
         } catch (error: any) {
@@ -190,7 +197,7 @@ function HomeViewModel() {
                 default:
                     setUiState({ errorMessage: 'Ocorreu um erro durante o login. Tente novamente.' });
             }
-            throw error; // Make sure to throw the error so LoginDialog can catch it
+            throw error;
         } finally {
             setIsProcessing(false);
         }

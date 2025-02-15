@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { auth } from '../../../data/firebase/FirebaseConfig';
+import { auth } from '../../../../../data/firebase/FirebaseConfig';
 import { applyActionCode } from 'firebase/auth';
 import { Box, Typography, CircularProgress } from '@mui/material';
-import Color from '../../../theme/Color';
+import Color from '../../../../../theme/Color';
 import Lottie from 'lottie-react';
-import successAnimation from '../../../assets/anim/user_registered.json';
+import successAnimation from '../../../../../assets/anim/user_registered.json';
 import { getFirestore, doc, setDoc } from 'firebase/firestore';
-import User from '../../../domain/model/User';
+import User from '../../../../../domain/model/User';
 
 const db = getFirestore();
 

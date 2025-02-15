@@ -13,7 +13,7 @@ import CopyrightSection from "../../../components/CopyrightSection";
 
 export const CentroQualificaPage: React.FC = () => {
     const [loading, setLoading] = useState(true);
-    const { topImage, breadcrumbs } = Features.COFINANCIADOS;
+    const { topImage, breadcrumbs } = Features.CENTRO_QUALIFICA;
 
     useEffect(() => {
         setTimeout(() => {

@@ -3,8 +3,11 @@ import React from "react";
 import { Features } from "../../../../../assets/features/Features";
 import { AccessTime, Email, Facebook, LocationOn, Phone } from "@mui/icons-material";
 import imgValongo from "../../../../../assets/img/logos/camara_valongo.png";
+import { useLanguage } from '../../../../../context/LanguageContext';
+import { Language } from '../../../../../types/LanguageTypes';
 
 export const Clds4gSection = () => {
+    const { language } = useLanguage() as { language: Language };
     const { subtitle, description, objective, contacts, working_hours, gallery, image } = Features.CLDS4G;
 
     return (
@@ -15,10 +18,10 @@ export const Clds4gSection = () => {
                     {/* Subtitle and Description Section */}
                     <Grid item xs={12}>
                         <Typography variant="h6" color="text.primary" paragraph sx={{ fontWeight: 'bold', fontSize: '1.2rem' }}>
-                            {subtitle}
+                            {subtitle[language]}
                         </Typography>
                         <Typography variant="body1" color="text.primary" paragraph>
-                            {description}
+                            {description[language]}
                         </Typography>
                     </Grid>
 
@@ -28,15 +31,15 @@ export const Clds4gSection = () => {
                             <strong>Objetivo:</strong>
                         </Typography>
                         <Typography variant="body1" color="text.primary" paragraph>
-                            {objective.main}
+                            {objective.main[language]}
                         </Typography>
                         {objective.axes.map((axis, index) => (
                             <Box key={index} sx={{ mb: 3 }}>
                                 <Typography variant="h6" color="text.primary" paragraph>
-                                    <strong>{axis.title}</strong>
+                                    <strong>{axis.title[language]}</strong>
                                 </Typography>
                                 <List>
-                                    {axis.items.map((item, idx) => (
+                                    {axis.items[language].map((item: string, idx: number) => (
                                         <ListItem key={idx}>
                                             <ListItemText primary={item} />
                                         </ListItem>

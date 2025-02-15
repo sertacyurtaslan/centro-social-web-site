@@ -9,8 +9,14 @@ import CustomInputBox from "../components/CustomInputBox";
 
 import TopColorBar from "../home/ui/head/TopColorBar";
 import Color from "../../../theme/Color";
+import { useLanguage } from '../../../context/LanguageContext';
+import { Language } from '../../../types/LanguageTypes';
+import { Features } from '../../../assets/features/Features';
 
 const FooterSection: React.FC = () => {
+    const { language } = useLanguage() as { language: Language };
+    const { FOOTER } = Features;
+
     return (
         <Box
             sx={{
@@ -38,8 +44,7 @@ const FooterSection: React.FC = () => {
                         </Box>
                         <Box sx ={{height:"10px"}}/>
                         <Typography variant="body2" color="white" align="justify" mb={8}>
-                            O Centro Social de Ermesinde é uma IPSS do concelho de Valongo que promove o bem-estar com
-                            a comunidade desde a sua fundação, a 15 de fevereiro de 1955.
+                            {FOOTER.description[language]}
                         </Typography>
                         <Box>
                             <IconButton
@@ -62,46 +67,34 @@ const FooterSection: React.FC = () => {
                     {/* Useful Links Section */}
                     <Grid item xs={12} sm={6} lg={3}>
                         <Typography variant="h6" color="white" mb={3}>
-                            Ligações úteis
+                            {FOOTER.sections.usefulLinks.title[language]}
                         </Typography>
                         <List>
-                            {[
-                                { label: "Jornal a Voz de Ermesinde", link: "http://www.avozdeermesinde.com/" },
-                                { label: "Parceiros", link: "index.html" },
-                                { label: "Rádio Zona Z", link: "https://www.facebook.com/zonazcomunitaria/" },
-                                { label: "Galeria", link: "index.html" },
-                            ].map((item, index) => (
+                            {FOOTER.sections.usefulLinks.links.map((item, index) => (
                                 <ListItem
                                     key={index}
                                     component="a"
                                     href={item.link}
                                     target="_blank"
-                                    sx={{ p: 0, mb: 2, display: "flex", alignItems: "center" }} // Align icon with label
+                                    sx={{ p: 0, mb: 2, display: "flex", alignItems: "center" }}
                                 >
-                                    <KeyboardDoubleArrowRight sx={{ color: "white", mr: 1 }} /> {/* Add the icon */}
-                                    <Typography color="white">{item.label}</Typography>
+                                    <KeyboardDoubleArrowRight sx={{ color: "white", mr: 1 }} />
+                                    <Typography color="white">{item.label[language]}</Typography>
                                 </ListItem>
                             ))}
                         </List>
                     </Grid>
 
-
-
                     {/* Highlights Section */}
                     <Grid item xs={12} sm={6} lg={3}>
                         <Typography variant="h6" color="white" mb={3}>
-                            Destaques
+                            {FOOTER.sections.highlights.title[language]}
                         </Typography>
                         <List>
-                            {[
-                                { label: "Politica de Privacidade", link: "politica_privacidade.html" },
-                                { label: "Contactos", link: "contactos.html" },
-                                { label: "Quem somos", link: "about-us.html" },
-                                { label: "Recrutamento", link: "mailto:recrutamento@cse.pt" },
-                            ].map((item, index) => (
-                                <ListItem key={index} component="a" href={item.link} sx={{ p: 0, mb: 2  }}>
-                                    <KeyboardDoubleArrowRight sx={{ color: "white", mr: 1 }} /> {/* Add the icon */}
-                                    <Typography color= "white" >{item.label}</Typography>
+                            {FOOTER.sections.highlights.links.map((item, index) => (
+                                <ListItem key={index} component="a" href={item.link} sx={{ p: 0, mb: 2 }}>
+                                    <KeyboardDoubleArrowRight sx={{ color: "white", mr: 1 }} />
+                                    <Typography color="white">{item.label[language]}</Typography>
                                 </ListItem>
                             ))}
                         </List>
@@ -110,10 +103,10 @@ const FooterSection: React.FC = () => {
                     {/* Newsletter Section */}
                     <Grid item xs={12} sm={6} lg={3}>
                         <Typography variant="h6" color="white" mb={6}>
-                            Newsletter
+                            {FOOTER.sections.newsletter.title[language]}
                         </Typography>
                         <Typography variant="body2" color="white" mb={4} align="justify">
-                            Mantenha-se informado sobre as novidades e atividades do Centro Social de Ermesinde
+                            {FOOTER.sections.newsletter.description[language]}
                         </Typography>
                         <Box component="form" sx={{ display: "flex", alignItems: "center", mb: 4 }}>
                             <CustomInputBox/>

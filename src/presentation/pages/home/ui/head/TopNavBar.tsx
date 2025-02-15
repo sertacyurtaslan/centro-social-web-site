@@ -1,14 +1,18 @@
 import React from "react";
 import { AppBar, Box, Container, Toolbar } from "@mui/material";
-import { Home, List, FileCopy, People, CalendarMonth, Mail } from "@mui/icons-material";
+import { Home, List, FileCopy, People, CalendarMonth, Mail, School } from "@mui/icons-material";
 import { useNavigate, useLocation } from "react-router-dom";
 import TopBarMenu from "./TopBarMenu";
 import Colors from "../../../../../theme/Color";
 import Logo from '../../../../../assets/img/logo-school.png';
+import { Features } from "../../../../../assets/features/Features";
+import { Language } from "../../../../../types/LanguageTypes";
+import { useLanguage } from "../../../../../context/LanguageContext";
 
 const TopNavBar = () => {
     const navigate = useNavigate();
     const location = useLocation();
+    const { language } = useLanguage() as { language: Language };
 
     const handleNavigation = (path: any) => {
         if (location.pathname !== `/${path}`) {
@@ -18,75 +22,84 @@ const TopNavBar = () => {
 
     return (
         <AppBar position="sticky" color="default" sx={{ 
-            height: { xs: "auto", sm: "126px" }, // Auto height on mobile
-            justifyContent: "center" 
+            height: { xs: "auto", sm: "126px" },
+            justifyContent: "center",
+            position: 'relative',
+            overflow: 'visible'
         }}>
             <Container disableGutters>
                 <Toolbar
                     sx={{
                         display: "flex",
-                        flexDirection: { xs: "column", sm: "row" }, // Stack vertically on mobile
+                        flexDirection: { xs: "column", sm: "row" },
                         justifyContent: "space-between",
                         alignItems: "center",
-                        py: { xs: 2, sm: 0 }, // Add padding on mobile
-                        gap: { xs: 2, sm: 0 }, // Add gap on mobile
+                        py: { xs: 2, sm: 0 },
+                        gap: { xs: 2, sm: 0 },
                     }}
                 >
-                    {/* Logo */}
+                    {/* Logo Container */}
                     <Box 
-                        component="img" 
-                        src={Logo} 
-                        alt="Logo" 
                         sx={{ 
-                            height: { xs: 40, sm: 50 }, // Smaller logo on mobile
-                            width: { xs: 160, sm: 200 } // Smaller logo width on mobile
-                        }} 
-                    />
+                            position: 'relative',
+                            height: { xs: 40, sm: 65 },
+                            width: { xs: 160, sm: 260 },
+                        }}
+                    >
+                        <Box 
+                            component="img" 
+                            src={Logo} 
+                            alt="Logo" 
+                            sx={{ 
+                                position: 'absolute',
+                                top: { xs: 0, sm: '50%' },
+                                left: 0,
+                                height: { xs: 40, sm: 65 },
+                                width: { xs: 160, sm: 260 },
+                                zIndex: 1200,
+                                transform: { xs: 'none', sm: 'translateY(-50%)' },
+                            }} 
+                        />
+                    </Box>
 
                     {/* Menu */}
-                    <Box sx={{ 
-                        display: "flex", 
+                    <Box sx={{
+                        display: "flex",
                         gap: { xs: 0.8, sm: 1.2 },
-                        flexWrap: "wrap", // Allow wrapping on mobile
-                        justifyContent: "center", // Center items on mobile
-                        px: { xs: 1, sm: 0 } // Add padding on mobile
+                        flexWrap: "wrap",
+                        justifyContent: "center",
+                        px: { xs: 1, sm: 0 }
                     }}>
                         <TopBarMenu
                             menuIcon={Home}
                             menuColor={Colors.yellow.main}
-                            menuName={"Home"}
+                            menuName={Features.MENU.home.name[language]}
                             onClick={() => handleNavigation("")}
                         />
 
                         <TopBarMenu
                             menuIcon={List}
                             menuColor={Colors.red.main}
-                            menuName={"Instituição"}
-                            menuItems={[
-                                "História",
-                                "Órgãos Sociais",
-                                "Organograma",
-                                "Política da Qualidade",
-                                "Documentos Institucionais",
-                            ]}
+                            menuName={Features.MENU.institution.name[language]}
+                            menuItems={Features.MENU.institution.items.map(item => item[language])}
                             onClick={(menuItem) => {
                                 const targetPath =
-                                    menuItem === "História"
+                                    menuItem === Features.MENU.institution.items[0][language]
                                         ? "historia"
-                                        : menuItem === "Órgãos Sociais"
+                                        : menuItem === Features.MENU.institution.items[1][language]
                                             ? "orgaos_sociais"
-                                            : menuItem === "Organograma"
+                                            : menuItem === Features.MENU.institution.items[2][language]
                                                 ? `/docs/Organogramas.pdf`
-                                                : menuItem === "Política da Qualidade"
+                                                : menuItem === Features.MENU.institution.items[3][language]
                                                     ? "politica_da_qualidade"
-                                                    : menuItem === "Documentos Institucionais"
+                                                    : menuItem === Features.MENU.institution.items[4][language]
                                                         ? "documentos_institucionais"
                                                         : null;
                                 if (targetPath) {
-                                    if (menuItem === "Organograma") {
-                                        window.open(targetPath, "_blank"); // Open PDF file in a new tab
+                                    if (menuItem === Features.MENU.institution.items[2][language]) {
+                                        window.open(targetPath, "_blank");
                                     } else {
-                                        handleNavigation(targetPath); // Handle navigation for other items
+                                        handleNavigation(targetPath);
                                     }
                                 }
                             }}
@@ -95,28 +108,21 @@ const TopNavBar = () => {
                         <TopBarMenu
                             menuIcon={FileCopy}
                             menuColor={Colors.green.main}
-                            menuName={"Respostas Sociais"}
-                            menuItems={[
-                                "Jardim Infância",
-                                "Creche",
-                                "CATL",
-                                "Lar S. Lourenço",
-                                "Apoio Domiciliário",
-                                "Formação e Emprego",
-                            ]}
+                            menuName={Features.MENU.socialServices.name[language]}
+                            menuItems={Features.MENU.socialServices.items.map(item => item[language])}
                             onClick={(menuItem) => {
                                 const targetPath =
-                                    menuItem === "Jardim Infância"
+                                    menuItem === Features.MENU.socialServices.items[0][language]
                                         ? "jardim_infancia"
-                                        : menuItem === "Creche"
+                                        : menuItem === Features.MENU.socialServices.items[1][language]
                                             ? "creche"
-                                            : menuItem === "Lar S. Lourenço"
-                                                ? "lar_s_lourenco"
-                                                : menuItem === "CATL"
-                                                    ? "catl"
-                                                    : menuItem === "Apoio Domiciliário"
+                                            : menuItem === Features.MENU.socialServices.items[2][language]
+                                                ? "catl"
+                                                : menuItem === Features.MENU.socialServices.items[3][language]
+                                                    ? "lar_s_lourenco"
+                                                    : menuItem === Features.MENU.socialServices.items[4][language]
                                                         ? "apoio_domiciliario"
-                                                        : menuItem === "Formação e Emprego"
+                                                        : menuItem === Features.MENU.socialServices.items[5][language]
                                                             ? "formacao_e_emprego"
                                                             : null;
 
@@ -127,43 +133,40 @@ const TopNavBar = () => {
                         <TopBarMenu
                             menuIcon={People}
                             menuColor={Colors.blue.main}
-                            menuName={"Projectos Actividades"}
-                            menuItems={[
-                                "ESCOLHAS 7G",
-                                "SAAS",
-                                "CLDS4G",
-                                "E2OV",
-                                "Projectos Cofinanciados",
-                                "CENTRO QUALIFICA",
-                            ]}
+                            menuName={Features.MENU.projects.name[language]}
+                            menuItems={Features.MENU.projects.items.map(item => item[language])}
                             onClick={(menuItem) => {
                                 const targetPath =
-                                    menuItem === "ESCOLHAS 7G"
+                                    menuItem === Features.MENU.projects.items[0][language]
                                         ? "escolhas_7g"
-                                        : menuItem === "SAAS"
+                                        : menuItem === Features.MENU.projects.items[1][language]
                                             ? "saas"
-                                            : menuItem === "CLDS4G"
+                                            : menuItem === Features.MENU.projects.items[2][language]
                                                 ? "clds4g"
-                                                : menuItem === "E2OV"
-                                                    ? "e2ov"
-                                                    : menuItem === "Projectos Cofinanciados"
+                                                : menuItem === Features.MENU.projects.items[3][language]
+                                                    ? "youth_exchange"
+                                                    :menuItem === Features.MENU.projects.items[4][language]
                                                         ? "cofinanciados"
-                                                        : menuItem === "CENTRO QUALIFICA"
-                                                            ? "centro_qualifica"
+                                                        : menuItem === Features.MENU.projects.items[5][language]
+                                                            ? "move"
                                                             : null;
 
-                            if (targetPath) handleNavigation(targetPath);
+                                if (targetPath) handleNavigation(targetPath);
                             }}
                         />
 
                         <TopBarMenu
-                            menuIcon={CalendarMonth}
+                            menuIcon={School}
                             menuColor={Colors.purple.main}
-                            menuName={"Serviços"}
-                            menuItems={["Administrativos"]}
+                            menuName={Features.MENU.education.name[language]}
+                            menuItems={Features.MENU.education.items.map(item => item[language])}
                             onClick={(menuItem) => {
                                 const targetPath =
-                                    menuItem === "Administrativos" ? "administrativos" : null;
+                                    menuItem === Features.MENU.education.items[0][language]
+                                        ? "e2ov"
+                                        : menuItem === Features.MENU.education.items[1][language]
+                                            ? "centro_qualifica"
+                                            : null;
 
                                 if (targetPath) handleNavigation(targetPath);
                             }}
@@ -172,7 +175,7 @@ const TopNavBar = () => {
                         <TopBarMenu
                             menuIcon={Mail}
                             menuColor={Colors.pink.main}
-                            menuName={"Contactos"}
+                            menuName={Features.MENU.contacts.name[language]}
                             onClick={() => handleNavigation("contactos")}
                         />
                     </Box>

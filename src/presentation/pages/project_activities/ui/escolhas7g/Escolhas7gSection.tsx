@@ -1,8 +1,11 @@
 import { Box, Container, Grid, Typography } from "@mui/material";
 import React from "react";
 import { Features } from "../../../../../assets/features/Features";
+import { useLanguage } from '../../../../../context/LanguageContext';
+import { Language } from '../../../../../types/LanguageTypes';
 
 export const Escolhas7gSection = () => {
+    const { language } = useLanguage() as { language: Language };
     const { title, content, image } = Features.ESCOLHAS7G;
 
     return (
@@ -27,9 +30,9 @@ export const Escolhas7gSection = () => {
                         <Grid item xs={12} md={6}>
                             <Box>
                                 <Typography variant="h2" sx={{ color: "info.main", fontWeight: "bold", mb: 3 }}>
-                                    {title}
+                                    {title[language]}
                                 </Typography>
-                                {content.map((paragraph, index) => (
+                                {content[language].map((paragraph: string, index: number) => (
                                     <Typography
                                         key={index}
                                         sx={{ color: "text.primary", textAlign: "justify", fontSize: 15, mb: 3 }}

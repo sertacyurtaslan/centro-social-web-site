@@ -1,8 +1,10 @@
 import { Box, Container, Grid, Typography } from "@mui/material";
 import React from "react";
 import { Features } from "../../../../../assets/features/Features";
+import { useLanguage } from '../../../../../context/LanguageContext';
 
 export const HistorySection = () => {
+    const { language } = useLanguage();
     const { title, content, image } = Features.HISTORY;
 
     return (
@@ -63,9 +65,9 @@ export const HistorySection = () => {
                                         }
                                     }}
                                 >
-                                    {title}
+                                    {title[language]}
                                 </Typography>
-                                {content.map((paragraph, index) => (
+                                {content[language].map((paragraph: string, index: number) => (
                                     <Typography
                                         key={index}
                                         sx={{ 

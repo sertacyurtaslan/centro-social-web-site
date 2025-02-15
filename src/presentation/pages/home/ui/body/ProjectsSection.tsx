@@ -4,13 +4,15 @@ import ProjectsItem from "./ProjectsItem";
 import { Features } from "../../../../../assets/features/Features";
 import Type from "../../../../../theme/Type";
 import Color from "../../../../../theme/Color";
+import { useLanguage } from "../../../../../context/LanguageContext";
 
 const ProjectsSection = () => {
-    const [inView, setInView] = useState<boolean[]>(new Array(Features.PROJECTS.length).fill(false));
+    const { language } = useLanguage();
+    const [inView, setInView] = useState<boolean[]>(new Array(Features.PROJECTS.items.length).fill(false));
     const [titleInView, setTitleInView] = useState<boolean>(false);
 
     // Create refs for each Grid item to observe visibility
-    const refs = Features.PROJECTS.map(() => React.createRef<HTMLDivElement>());
+    const refs = Features.PROJECTS.items.map(() => React.createRef<HTMLDivElement>());
 
     useEffect(() => {
         const observer = new IntersectionObserver(
@@ -66,13 +68,13 @@ const ProjectsSection = () => {
                     }}
                 >
                     <Typography sx={{ typography: Type.typography.displayLarge, color: Color.red.main}}>
-                        Projectos
+                        {Features.PROJECTS.title[language]}
                     </Typography>
                 </Box>
 
                 {/* Grid of Project Cards */}
                 <Grid container spacing={4}>
-                    {Features.PROJECTS.map((project, index) => (
+                    {Features.PROJECTS.items.map((project, index) => (
                         <Grid item xs={12} sm={6} md={3} key={index}>
                             <Box
                                 ref={refs[index]}
@@ -85,6 +87,8 @@ const ProjectsSection = () => {
                                 <ProjectsItem
                                     {...project}
                                     color={project.color}
+                                    title={project.title[language]}
+                                    description={project.description[language]}
                                 />
                             </Box>
                         </Grid>

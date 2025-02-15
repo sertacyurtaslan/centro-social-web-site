@@ -1,10 +1,14 @@
 import React from "react";
 import { Box, Container, Grid, Paper, Typography, Divider } from "@mui/material";
 import { Features } from "../../../../../assets/features/Features";
+import { useLanguage } from '../../../../../context/LanguageContext';
+import { Language } from '../../../../../types/LanguageTypes';
 
 const socialOrgans = Features.SOCIAL_ORGANS;
 
 export const SocialOrgansSection: React.FC = () => {
+    const { language } = useLanguage() as { language: Language };
+
     return (
         <Box sx={{ padding: "3rem", backgroundColor: "#f4f6f9" }}>
             <Container>
@@ -14,7 +18,7 @@ export const SocialOrgansSection: React.FC = () => {
                     <Grid item xs={12} sm={4}>
                         <Paper elevation={6} sx={{ padding: 3, borderRadius: "10px", backgroundColor: "#ffffff" }}>
                             <Typography variant="h5" gutterBottom sx={{ fontWeight: "bold", color: "#00796b" }}>
-                                {socialOrgans.management.direcao.title}
+                                {socialOrgans.management.direcao.title[language]}
                             </Typography>
                             <Divider sx={{ marginBottom: "1rem" }} />
                             <Typography variant="body1" gutterBottom sx={{ fontWeight: "500" }}>
@@ -49,7 +53,7 @@ export const SocialOrgansSection: React.FC = () => {
                     <Grid item xs={12} sm={4}>
                         <Paper elevation={6} sx={{ padding: 3, borderRadius: "10px", backgroundColor: "#ffffff" }}>
                             <Typography variant="h5" gutterBottom sx={{ fontWeight: "bold", color: "#00796b" }}>
-                                {socialOrgans.management.mesaAssembleiaGeral.title}
+                                {socialOrgans.management.mesaAssembleiaGeral.title[language]}
                             </Typography>
                             <Divider sx={{ marginBottom: "1rem" }} />
                             <Typography variant="body1" gutterBottom sx={{ fontWeight: "500" }}>
@@ -68,7 +72,7 @@ export const SocialOrgansSection: React.FC = () => {
                     <Grid item xs={12} sm={4}>
                         <Paper elevation={6} sx={{ padding: 3, borderRadius: "10px", backgroundColor: "#ffffff" }}>
                             <Typography variant="h5" gutterBottom sx={{ fontWeight: "bold", color: "#00796b" }}>
-                                {socialOrgans.management.conselhoFiscal.title}
+                                {socialOrgans.management.conselhoFiscal.title[language]}
                             </Typography>
                             <Divider sx={{ marginBottom: "1rem" }} />
                             <Typography variant="body1" gutterBottom sx={{ fontWeight: "500" }}>

@@ -1,8 +1,11 @@
 import React from 'react';
 import { Box, Container, Divider } from '@mui/material';
 import {Features} from "../../../../../assets/features/Features";
+import { useLanguage } from '../../../../../context/LanguageContext';
+import { Language } from '../../../../../types/LanguageTypes';
 
 export const QualityPolicySection = () => {
+    const { language } = useLanguage() as { language: Language };
     const qualityPolicy = Features.QUALITY_POLICY;
 
     return (
@@ -18,7 +21,7 @@ export const QualityPolicySection = () => {
                             textTransform: 'uppercase'
                         }}
                     >
-                        {qualityPolicy.title}
+                        {qualityPolicy.title[language]}
                     </Box>
                 </Box>
 
@@ -31,12 +34,12 @@ export const QualityPolicySection = () => {
                             color: 'text.primary'
                         }}
                     >
-                        <strong>{qualityPolicy.objective}</strong>
+                        <strong>{qualityPolicy.objective[language]}</strong>
                     </Box>
                 </Box>
 
                 {/* Content */}
-                {qualityPolicy.content.map((paragraph, index) => (
+                {qualityPolicy.content[language].map((paragraph: string, index: number) => (
                     <Box key={index} sx={{ marginBottom: 3 }}>
                         <Box
                             sx={{
@@ -60,7 +63,7 @@ export const QualityPolicySection = () => {
                             color: 'text.primary'
                         }}
                     >
-                        <strong>{qualityPolicy.values}</strong>
+                        <strong>{qualityPolicy.values[language]}</strong>
                     </Box>
                 </Box>
 
@@ -69,7 +72,7 @@ export const QualityPolicySection = () => {
 
                 {/* Approved Date */}
                 <Box sx={{ textAlign: 'right', fontStyle: 'italic', fontSize: '0.875rem', color: 'text.secondary' }}>
-                    {qualityPolicy.approvedDate}
+                    {qualityPolicy.approvedDate[language]}
                 </Box>
             </Container>
         </Box>

@@ -1,5 +1,5 @@
 import React, {useEffect, useState, useRef} from 'react';
-import {Box, Container, useTheme, useMediaQuery} from '@mui/material';
+import {Box, Container, useTheme, useMediaQuery, Fab, Zoom} from '@mui/material';
 import CarouselSlide from "./head/CarouselSlide";
 import img1 from '../../../../assets/img/banner/slider-1/img-1.jpg';
 import img2 from '../../../../assets/img/banner/slider-1/img-2.jpg';
@@ -17,7 +17,7 @@ import LoadingOverlay from "./head/LoadingOverlay";
 import imgBackground from '../../../../assets/img/background/background_convocatoria.jpg';
 import imgBackground2 from '../../../../assets/img/background/background-img-1.jpg';
 import imgBackground3 from '../../../../assets/img/background/acarrinhar.jpg';
-import {Article, EmojiTransportation, MonitorHeart} from "@mui/icons-material";
+import {Article, EmojiTransportation, MonitorHeart, KeyboardArrowUp} from "@mui/icons-material";
 import ProjectsSection from "./body/ProjectsSection";
 import CounterSection from "./body/CounterSection";
 import NewsSection from "./body/NewsSection";
@@ -29,8 +29,13 @@ import { onAuthStateChanged } from 'firebase/auth';
 import { firestore } from '../../../../data/firebase/FirebaseConfig';
 import { doc, getDoc } from 'firebase/firestore';
 import CopyrightSection from '../../components/CopyrightSection';
+import LoginDialog from './auth/LoginDialog';
+import RegisterDialog from './auth/RegisterDialog';
+import { useLanguage } from '../../../../context/LanguageContext';
+import { Language } from '../../../../types/LanguageTypes';
 
 const HomePage: React.FC = () => {
+    const { language } = useLanguage() as { language: Language };
     const [loading, setLoading] = useState(true);
     const [currentUser, setCurrentUser] = useState<{
         userName: string | null;
@@ -39,6 +44,11 @@ const HomePage: React.FC = () => {
     } | null>(null);
     const theme = useTheme();
     const isDesktop = useMediaQuery(theme.breakpoints.up('sm'));
+    const [openLoginDialog, setOpenLoginDialog] = useState(false);
+    const [openRegisterDialog, setOpenRegisterDialog] = useState(false);
+    const [showScrollTop, setShowScrollTop] = useState(false);
+    const [showFullHeader, setShowFullHeader] = useState(true);
+    const lastScrollY = useRef(0);
 
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, async (user) => {
@@ -73,125 +83,222 @@ const HomePage: React.FC = () => {
         }, 500);
     }, []);
 
+    useEffect(() => {
+        const handleScroll = () => {
+            const currentScrollY = window.scrollY;
+            
+            // Show/hide scroll to top button
+            setShowScrollTop(currentScrollY > 400);
+
+            // Show full header when scrolling up, hide when scrolling down
+            if (currentScrollY > lastScrollY.current && currentScrollY > 200) {
+                setShowFullHeader(false); // Hide when scrolling down
+            } else {
+                setShowFullHeader(true);  // Show when scrolling up
+            }
+            
+            lastScrollY.current = currentScrollY;
+        };
+
+        window.addEventListener('scroll', handleScroll, { passive: true });
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
+
+    const handleSwitchToRegister = () => {
+        setOpenLoginDialog(false);
+        setOpenRegisterDialog(true);
+    };
+
+    const handleSwitchToLogin = () => {
+        setOpenRegisterDialog(false);
+        setOpenLoginDialog(true);
+    };
+
+    const scrollToTop = () => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    };
+
     return (
-        <AppThemeProvider mode={"light"}>
-            <Box sx={{ 
-                minHeight: '100vh',
-                overflow: 'hidden'
-            }}>
-                {/* Header Section - Sticky */}
+        <>
+            {openLoginDialog && (
+                <LoginDialog 
+                    onClose={() => setOpenLoginDialog(false)}
+                    onSwitchToRegister={handleSwitchToRegister}
+                />
+            )}
+            {openRegisterDialog && (
+                <RegisterDialog 
+                    onClose={() => setOpenRegisterDialog(false)}
+                    onSwitchToLogin={handleSwitchToLogin}
+                />
+            )}
+            <AppThemeProvider mode={"light"}>
                 <Box sx={{ 
-                    position: 'sticky',
-                    top: 0,
-                    zIndex: 1100,
-                    backgroundColor: 'white',
-                    boxShadow: '0 2px 4px rgba(0,0,0,0.1)', // Optional: adds subtle shadow
+                    minHeight: '100vh',
+                    overflow: 'hidden',
+                    position: 'relative'
                 }}>
-                    <TopColorBar/>
-                    <TopAppBar currentUser={currentUser} />
-                    <TopNavBar/>
-
-                </Box>
-
-
-                {/* Main Content Container */}
-                <Box>
-                    {/* Preloader */}
-                    {loading && (<LoadingOverlay/> )}
-
-                    {/* Content sections */}
-                    <Box>
-                        {/* Image Carousel */}
-                        <CarouselSlide
-                            autoSlide={true}
-                            autoSlideInterval={7500}
-                            children={[img1, img2, img3, img4]}
-                            texts={Features.CAROUSEL}
-                            cardGridComponent={<CardGrid/>}
-                        />
-
-                        {/* First Parallax - Responsive */}
-                        <Box sx={{ mt: { xs: 2, sm: 3, md: 4 } }}>
-                            <ParallaxBox
-                                title={Features.FIRST_PARALLAX.title}
-                                subtitle={Features.FIRST_PARALLAX.subTitle}
-                                buttonLink={Features.FIRST_PARALLAX.buttonLink}
-                                buttonText={Features.FIRST_PARALLAX.buttonText}
-                                buttonIcon={<Article/>}
-                                backgroundImage={imgBackground}
-                            />
-                        </Box>
-
-                        {/* Social Responses - Responsive */}
-                        <Container maxWidth="lg" sx={{ 
-                            py: { xs: 4, sm: 6, md: 8 },
-                            px: { xs: 2, sm: 3, md: 4 }
-                        }}>
-                            <SocialResponses/>
-                        </Container>
-
-                        {/* Second Parallax - Responsive */}
-                        <ParallaxBox
-                            title={Features.SECOND_PARALLAX.title}
-                            subtitle={Features.SECOND_PARALLAX.subTitle}
-                            buttonLink={Features.SECOND_PARALLAX.buttonLink}
-                            buttonText={Features.SECOND_PARALLAX.buttonText}
-                            buttonIcon={<MonitorHeart/>}
-                            backgroundImage={imgBackground2}
-                        />
-
-                        {/* Projects Section - Responsive */}
-                        <Container maxWidth="lg" sx={{ 
-                            py: { xs: 4, sm: 6, md: 8 },
-                            px: { xs: 2, sm: 3, md: 4 }
-                        }}>
-                            <ProjectsSection/>
-                        </Container>
-
-                        {/* Counter Section - Responsive */}
-                        <Box sx={{ my: { xs: 4, sm: 6, md: 8 } }}>
-                            <CounterSection/>
-                        </Box>
-
-                        {/* News Section - Responsive */}
-                        <Container maxWidth="lg" sx={{ 
-                            py: { xs: 4, sm: 6, md: 8 },
-                            px: { xs: 2, sm: 3, md: 4 }
-                        }}>
-                            <NewsSection/>
-                        </Container>
-
-                        {/* Third Parallax - Responsive */}
-                        <ParallaxBox
-                            title={Features.THIRD_PARALLAX.title}
-                            subtitle={Features.THIRD_PARALLAX.subTitle}
-                            buttonLink={Features.THIRD_PARALLAX.buttonLink}
-                            buttonText={Features.THIRD_PARALLAX.buttonText}
-                            buttonIcon={<EmojiTransportation/>}
-                            backgroundImage={imgBackground3}
-                        />
-
-                        {/* Contact Section - Responsive */}
-                        <Container maxWidth="lg" sx={{ 
-                            py: { xs: 4, sm: 6, md: 8 },
-                            px: { xs: 2, sm: 3, md: 4 }
-                        }}>
-                            <ContactSection/>
-                        </Container>
-
-                        {/* Footer - Only show on desktop */}
-                        {isDesktop && (
-                            <Box sx={{ mt: { sm: 6, md: 8 } }}>
-                                <FooterSection/>
-                            </Box>
-                        )}
-
-                        {/* Copyright Section - Always visible */}
-                        <CopyrightSection/>
+                    {/* Static Header Elements with transition */}
+                    <Box sx={{
+                        position: 'fixed',
+                        top: showFullHeader ? 0 : { xs: '-36px', sm: '-60px' },
+                        left: 0,
+                        right: 0,
+                        zIndex: 1100,
+                        backgroundColor: 'white',
+                        transition: 'top 0.3s ease-in-out',
+                    }}>
+                        <TopColorBar/>
+                        <TopAppBar />
                     </Box>
+
+                    {/* Always Fixed Navigation Bar */}
+                    <Box sx={{
+                        position: 'fixed',
+                        top: showFullHeader ? { xs: '36px', sm: '60px' } : 0,
+                        left: 0,
+                        right: 0,
+                        zIndex: 1100,
+                        backgroundColor: 'white',
+                        boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
+                        transition: 'top 0.3s ease-in-out',
+                    }}>
+                        <TopNavBar/>
+                    </Box>
+
+                    {/* Main Content Container */}
+                    <Box sx={{
+                        pt: {
+                            xs: '92px',
+                            sm: '116px'
+                        }
+                    }}>
+                        {/* Preloader */}
+                        {loading && (<LoadingOverlay/> )}
+
+                        {/* Content sections */}
+                        <Box>
+                            {/* Image Carousel */}
+                            <CarouselSlide
+                                autoSlide={true}
+                                autoSlideInterval={7500}
+                                children={[img1, img2, img3, img4]}
+                                texts={Features.CAROUSEL}
+                                cardGridComponent={<CardGrid/>}
+                            />
+
+                            {/* First Parallax - Responsive */}
+                            <Box sx={{ mt: { xs: 2, sm: 3, md: 4 } }}>
+                                <ParallaxBox
+                                    title={Features.FIRST_PARALLAX.title[language]}
+                                    subtitle={Features.FIRST_PARALLAX.subTitle[language]}
+                                    buttonLink={Features.FIRST_PARALLAX.buttonLink}
+                                    buttonText={Features.FIRST_PARALLAX.buttonText[language]}
+                                    buttonIcon={<Article/>}
+                                    backgroundImage={imgBackground}
+                                />
+                            </Box>
+
+                            {/* Social Responses - Responsive */}
+                            <Container maxWidth="lg" sx={{ 
+                                py: { xs: 4, sm: 6, md: 8 },
+                                px: { xs: 2, sm: 3, md: 4 }
+                            }}>
+                                <SocialResponses/>
+                            </Container>
+
+                            {/* Second Parallax - Responsive */}
+                            <ParallaxBox
+                                title={Features.SECOND_PARALLAX.title[language]}
+                                subtitle={Features.SECOND_PARALLAX.subTitle[language]}
+                                buttonLink={Features.SECOND_PARALLAX.buttonLink}
+                                buttonText={Features.SECOND_PARALLAX.buttonText[language]}
+                                buttonIcon={<MonitorHeart/>}
+                                backgroundImage={imgBackground2}
+                            />
+
+                            {/* Projects Section - Responsive */}
+                            <Container maxWidth="lg" sx={{ 
+                                py: { xs: 4, sm: 6, md: 8 },
+                                px: { xs: 2, sm: 3, md: 4 }
+                            }}>
+                                <ProjectsSection/>
+                            </Container>
+
+                            {/* Counter Section - Responsive */}
+                            <Box sx={{ my: { xs: 4, sm: 6, md: 8 } }}>
+                                <CounterSection/>
+                            </Box>
+
+                            {/* News Section - Responsive */}
+                            <Container maxWidth="lg" sx={{ 
+                                py: { xs: 4, sm: 6, md: 8 },
+                                px: { xs: 2, sm: 3, md: 4 }
+                            }}>
+                                <NewsSection/>
+                            </Container>
+
+                            {/* Third Parallax - Responsive */}
+                            <ParallaxBox
+                                title={Features.THIRD_PARALLAX.title[language]}
+                                subtitle={Features.THIRD_PARALLAX.subTitle[language]}
+                                buttonLink={Features.THIRD_PARALLAX.buttonLink}
+                                buttonText={Features.THIRD_PARALLAX.buttonText[language]}
+                                buttonIcon={<EmojiTransportation/>}
+                                backgroundImage={imgBackground3}
+                            />
+
+                            {/* Contact Section - Responsive */}
+                            <Container maxWidth="lg" sx={{
+                                py: { xs: 4, sm: 6, md: 8 },
+                                px: { xs: 2, sm: 3, md: 4 }
+                            }}>
+                                <ContactSection/>
+                            </Container>
+
+                            {/* Footer - Only show on desktop */}
+                            {isDesktop && (
+                                <Box sx={{ mt: { sm: 6, md: 8 } }}>
+                                    <FooterSection/>
+                                </Box>
+                            )}
+
+                            {/* Copyright Section - Always visible */}
+                            <CopyrightSection/>
+                        </Box>
+                    </Box>
+
+                    {/* Scroll to Top Button */}
+                    <Zoom in={showScrollTop}>
+                        <Fab
+                            color="primary"
+                            size="large"
+                            onClick={scrollToTop}
+                            sx={{
+                                position: 'fixed',
+                                bottom: 16,
+                                right: 16,
+                                zIndex: 1000,
+                                bgcolor: theme => theme.palette.primary.main,
+                                '&:hover': {
+                                    bgcolor: theme => theme.palette.primary.dark,
+                                },
+                                '@media (max-width: 600px)': {
+                                    bottom: 72,
+                                    right: 16,
+                                }
+                            }}
+                            aria-label="scroll to top"
+                        >
+                            <KeyboardArrowUp />
+                        </Fab>
+                    </Zoom>
                 </Box>
-            </Box>
-        </AppThemeProvider>
+            </AppThemeProvider>
+        </>
     );
 };
 

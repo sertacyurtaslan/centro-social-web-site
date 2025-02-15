@@ -19,10 +19,15 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { Features } from "../../../../../assets/features/Features";
 import { Download as DownloadIcon } from "@mui/icons-material";
 import Type from "../../../../../theme/Type";
+import { useLanguage } from "../../../../../context/LanguageContext";
+import { Language } from "../../../../../types/LanguageTypes";
 
 const documents = Features.INSTITUONAL_DOCUMENTS;
+const { ui } = Features.INSTITUONAL_DOCUMENTS_TOP;
 
 export const InstituonalDocumentsSection: React.FC = () => {
+const { language } = useLanguage() as { language: Language };
+    
     return (
         <Box sx={{ 
             padding: "32px",
@@ -87,7 +92,7 @@ export const InstituonalDocumentsSection: React.FC = () => {
                                 textShadow: '1px 1px 2px rgba(0,0,0,0.1)'
                             }}
                         >
-                            {docCategory.title}
+                            {docCategory.title[language]}
                         </Typography>
                     </AccordionSummary>
                     <AccordionDetails sx={{ padding: "24px" }}>
@@ -103,10 +108,10 @@ export const InstituonalDocumentsSection: React.FC = () => {
                                 <TableHead>
                                     <TableRow>
                                         <TableCell sx={{ fontSize: "16px", fontWeight: "bold", backgroundColor: '#f5f5f5' }}>
-                                            Documento
+                                            {ui.documentColumn[language]}
                                         </TableCell>
                                         <TableCell sx={{ fontSize: "16px", fontWeight: "bold", backgroundColor: '#f5f5f5' }}>
-                                            Descarregar
+                                            {ui.downloadColumn[language]}
                                         </TableCell>
                                     </TableRow>
                                 </TableHead>
@@ -123,7 +128,7 @@ export const InstituonalDocumentsSection: React.FC = () => {
                                                     }
                                                 }}
                                             >
-                                                <TableCell>{file.name}</TableCell>
+                                                <TableCell>{file.name[language]}</TableCell>
                                                 <TableCell>
                                                     {file.link ? (
                                                         <Link href={file.link} target="_blank" underline="none">
@@ -143,7 +148,7 @@ export const InstituonalDocumentsSection: React.FC = () => {
                                                                     }
                                                                 }}
                                                             >
-                                                                Baixar
+                                                                {ui.downloadButton[language]}
                                                             </Button>
                                                         </Link>
                                                     ) : (
@@ -153,7 +158,7 @@ export const InstituonalDocumentsSection: React.FC = () => {
                                                                 fontStyle: 'italic'
                                                             }}
                                                         >
-                                                            Indisponível
+                                                            {ui.unavailable[language]}
                                                         </Typography>
                                                     )}
                                                 </TableCell>
@@ -170,7 +175,7 @@ export const InstituonalDocumentsSection: React.FC = () => {
                                                         fontStyle: 'italic'
                                                     }}
                                                 >
-                                                    Sem documentos disponíveis.
+                                                    {ui.noDocuments[language]}
                                                 </Typography>
                                             </TableCell>
                                         </TableRow>

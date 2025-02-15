@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { Container, Grid, Card, CardContent, Typography, Box } from '@mui/material';
 import {Features} from "../../../../../assets/features/Features";
+import { useLanguage } from '../../../../../context/LanguageContext';
+import { KeyboardArrowDown } from '@mui/icons-material';
 
 const CardGrid = () => {
+    const { language } = useLanguage();
     const [isInView, setIsInView] = useState<boolean[]>(new Array(Features.CARD_ITEMS.length).fill(false));
     const cardRefs = Features.CARD_ITEMS.map(() => React.createRef<HTMLDivElement>());
 
@@ -79,13 +82,15 @@ const CardGrid = () => {
                                         height: { xs: '100px', sm: '160px', md: '190px' },
                                         width: { xs: '100px', sm: '200px', md: '260px' },
                                         textAlign: 'center',
-                                        overflow: 'hidden',
+                                        overflow: 'visible',
                                         borderRadius: { xs: '12px', sm: '16px' },
                                         paddingTop: { xs: '20px', sm: '35px', md: '40px' },
                                         boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)',
+                                        position: 'relative',
                                     }}
                                 >
                                     <Box
+                                        className="circle-icon"
                                         sx={{
                                             position: 'absolute',
                                             top: { xs: '-15px', sm: '-30px', md: '-40px' },
@@ -99,13 +104,10 @@ const CardGrid = () => {
                                             display: 'flex',
                                             alignItems: 'center',
                                             justifyContent: 'center',
-                                            zIndex: 1,
+                                            zIndex: 2,
                                         }}
                                     >
-                                        <Box sx={{ 
-                                            color: item.color, 
-                                            fontSize: { xs: 16, sm: 30, md: 40 } 
-                                        }}>
+                                        <Box sx={{ color: item.color, fontSize: { xs: 16, sm: 30, md: 40 } }}>
                                             {React.createElement(item.icon)}
                                         </Box>
                                     </Box>
@@ -117,6 +119,7 @@ const CardGrid = () => {
                                         }
                                     }}>
                                         <Typography
+                                            className="card-title"
                                             variant="h5"
                                             sx={{
                                                 fontFamily: 'Dosis, sans-serif',
@@ -126,8 +129,19 @@ const CardGrid = () => {
                                                 lineHeight: { xs: 1.2, sm: 1.5 },
                                             }}
                                         >
-                                            {item.title}
+                                            {item.title[language]}
                                         </Typography>
+                                        <KeyboardArrowDown 
+                                            className="arrow-icon"
+                                            sx={{ 
+                                                color: 'white',
+                                                fontSize: '24px',
+                                                opacity: 0,
+                                                transform: 'translateY(-10px)',
+                                                transition: 'all 0.3s ease-in-out',
+                                                marginTop: '8px'
+                                            }} 
+                                        />
                                     </CardContent>
                                 </Card>
                             </Box>

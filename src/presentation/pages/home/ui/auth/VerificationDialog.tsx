@@ -8,13 +8,18 @@ import {
     Box,
     Snackbar,
     Alert,
-    CircularProgress
+    CircularProgress,
+    DialogTitle,
+    DialogActions
 } from '@mui/material';
 import { Close } from '@mui/icons-material';
 import Color from "../../../../../theme/Color";
 import Type from "../../../../../theme/Type";
 import HomeViewModel from '../../viewmodel/HomeViewModel';
 import { sendVerificationCode } from '../../../../../utils/EmailVerification';
+import { useLanguage } from '../../../../../context/LanguageContext';
+import { Language } from '../../../../../types/LanguageTypes';
+import { Features } from '../../../../../assets/features/Features';
 
 interface VerificationDialogProps {
     onClose: () => void;
@@ -31,6 +36,8 @@ const VerificationDialog: React.FC<VerificationDialogProps> = ({ onClose, name, 
     const [errorMessage, setErrorMessage] = useState('');
     const [registrationSuccess, setRegistrationSuccess] = useState(false);
     const { registerUser } = HomeViewModel();
+    const { language } = useLanguage() as { language: Language };
+    const { verification } = Features.AUTH;
 
     const handleVerify = async () => {
         if (verificationCode === expectedCode) {
@@ -112,14 +119,14 @@ const VerificationDialog: React.FC<VerificationDialogProps> = ({ onClose, name, 
                         fontWeight: 'bold'
                     }}
                 >
-                    Verificar Email
+                    {verification.title[language]}
                 </Typography>
 
                 <Typography
                     textAlign="center"
                     sx={{ mt: 2, mb: 4 }}
                 >
-                    Digite o código de verificação enviado para {email}
+                    {verification.message[language]}
                 </Typography>
 
                 <TextField
@@ -210,6 +217,9 @@ const VerificationDialog: React.FC<VerificationDialogProps> = ({ onClose, name, 
                     </Alert>
                 </Snackbar>
             </DialogContent>
+            <DialogActions>
+                <Button onClick={onClose}>{verification.buttons.close[language]}</Button>
+            </DialogActions>
         </Dialog>
     );
 };

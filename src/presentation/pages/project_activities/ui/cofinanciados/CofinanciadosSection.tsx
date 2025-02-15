@@ -1,8 +1,11 @@
 import React from 'react';
 import { Box, Card, CardMedia, Typography, Button } from '@mui/material';
 import { Features } from "../../../../../assets/features/Features";
+import { useLanguage } from '../../../../../context/LanguageContext';
+import { Language } from '../../../../../types/LanguageTypes';
 
 export const CofinanciadosSection = () => {
+  const { language } = useLanguage() as { language: Language };
   const projects = Features.COFINANCIADOS.projects;
 
   return (
@@ -10,7 +13,7 @@ export const CofinanciadosSection = () => {
       {/* Project Information Section */}
       <Box mb={4} textAlign="center">
         <Typography variant="h4" color="textPrimary" gutterBottom>
-          Projectos Cofinanciados
+          {Features.COFINANCIADOS.title[language]}
         </Typography>
         <Typography variant="body1" color="textSecondary" paragraph>
           Norte 2020 - Equipamentos Sociais - NORTE-07-4842-FEDER-00432
@@ -22,7 +25,8 @@ export const CofinanciadosSection = () => {
           target="_blank"
           sx={{ mt: 2, bgcolor: '#d32f2f', '&:hover': { bgcolor: '#c62828' } }}
         >
-          <i className="fab fa-wpforms mr-2" aria-hidden="true"></i> Ficha do Projecto
+          <i className="fab fa-wpforms mr-2" aria-hidden="true"></i> 
+          {Features.COFINANCIADOS.projectFile[language]}
         </Button>
       </Box>
 
@@ -46,7 +50,7 @@ export const CofinanciadosSection = () => {
             <CardMedia
               component="img"
               image={project.image}
-              alt={project.title}
+              alt={project.title[language]}
               sx={{
                 maxWidth: '80%', // Set a maximum width for the logos
                 maxHeight: '100px', // Set a maximum height for the logos
@@ -57,10 +61,10 @@ export const CofinanciadosSection = () => {
             />
             <Box p={2}>
               <Typography variant="h6" color="textPrimary">
-                {project.title}
+                {project.title[language]}
               </Typography>
               <Typography variant="body2" color="textSecondary">
-                {project.description}
+                {project.description[language]}
               </Typography>
               <Button
                 variant="outlined"
@@ -69,7 +73,7 @@ export const CofinanciadosSection = () => {
                 target="_blank"
                 sx={{ mt: 1 }}
               >
-                Saiba mais
+                {Features.COFINANCIADOS.button[language]}
               </Button>
             </Box>
           </Card>
