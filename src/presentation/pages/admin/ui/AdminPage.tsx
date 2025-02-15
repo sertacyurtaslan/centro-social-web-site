@@ -5,20 +5,12 @@ import {
     Grid,
     Card,
     CardContent,
-    Button,
-    TextField,
-    Dialog,
-    DialogTitle,
-    DialogContent,
-    DialogActions,
-    IconButton
+    Button
 } from '@mui/material';
-import { 
-    Edit, 
-    Delete, 
-    Add, 
-    Close,
-    PhotoCamera,
+import {
+    Edit,
+    Delete,
+    Add,
     LogoutRounded
 } from '@mui/icons-material';
 import { collection, getDocs, addDoc, updateDoc, deleteDoc, doc } from 'firebase/firestore';
