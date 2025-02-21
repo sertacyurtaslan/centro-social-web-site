@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { memo, useEffect, useState } from "react";
 import { Box, Container, Grid, Typography } from "@mui/material";
 import ProjectsItem from "./ProjectsItem";
 import { Features } from "../../../../../assets/features/Features";
@@ -6,7 +6,7 @@ import Type from "../../../../../theme/Type";
 import Color from "../../../../../theme/Color";
 import { useLanguage } from "../../../../../context/LanguageContext";
 
-const ProjectsSection = () => {
+const ProjectsSection = memo( () => {
     const { language } = useLanguage();
     const [inView, setInView] = useState<boolean[]>(new Array(Features.PROJECTS.items.length).fill(false));
     const [titleInView, setTitleInView] = useState<boolean>(false);
@@ -97,6 +97,6 @@ const ProjectsSection = () => {
             </Container>
         </section>
     );
-};
+});
 
 export default ProjectsSection;

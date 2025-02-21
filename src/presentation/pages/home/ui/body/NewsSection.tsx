@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { memo, useEffect, useState } from 'react';
 import { Box, Grid, Typography, Button } from '@mui/material';
 import { collection, getDocs, addDoc } from 'firebase/firestore';
 import { db } from '../../../../../data/firebase/FirebaseConfig';
@@ -19,7 +19,7 @@ interface NewsItemData {
     buttonText: string;
 }
 
-const NewsSection: React.FC = () => {
+const NewsSection = memo(() => {
     const { language } = useLanguage();
     const [newsItems, setNewsItems] = useState<NewsItemData[]>([]);
 
@@ -92,6 +92,6 @@ const NewsSection: React.FC = () => {
             </Box>
         </Box>
     );
-};
+});    
 
 export default NewsSection;

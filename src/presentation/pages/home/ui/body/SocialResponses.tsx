@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { memo, useEffect, useState } from 'react';
 import { Box, Card, Container, Grid, Typography } from '@mui/material';
 import Type from "../../../../../theme/Type";
 import { Features } from "../../../../../assets/features/Features";
@@ -13,7 +13,7 @@ interface SocialResponse {
     text: TranslatedText;
 }
 
-const SocialResponses: React.FC = () => {
+const SocialResponses= memo (() => {
     const { language } = useLanguage();
     const [inView, setInView] = useState<boolean[]>(new Array(Features.SOCIAL_RESPONSES.items.length).fill(false));
     const refs = Features.SOCIAL_RESPONSES.items.map(() => React.createRef<HTMLDivElement>());
@@ -158,6 +158,6 @@ const SocialResponses: React.FC = () => {
             </Container>
         </Box>
     );
-};
+});
 
 export default SocialResponses;

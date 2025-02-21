@@ -1,4 +1,4 @@
-import React, {useEffect, useState, useRef} from 'react';
+import React, {useEffect, useState, useRef, Suspense, lazy} from 'react';
 import {Box, Container, useTheme, useMediaQuery, Fab, Zoom} from '@mui/material';
 import CarouselSlide from "./head/CarouselSlide";
 import img1 from '../../../../assets/img/banner/slider-1/img-1.jpg';
@@ -12,16 +12,11 @@ import {AppThemeProvider} from "../../../../theme/Theme";
 import CardGrid from "./head/CardGrid";
 import {Features} from "../../../../assets/features/Features";
 import ParallaxBox from "./body/ParallaxBox";
-import SocialResponses from "./body/SocialResponses";
 import LoadingOverlay from "./head/LoadingOverlay";
 import imgBackground from '../../../../assets/img/background/background_convocatoria.jpg';
 import imgBackground2 from '../../../../assets/img/background/background-img-1.jpg';
 import imgBackground3 from '../../../../assets/img/background/acarrinhar.jpg';
 import {Article, EmojiTransportation, MonitorHeart, KeyboardArrowUp} from "@mui/icons-material";
-import ProjectsSection from "./body/ProjectsSection";
-import CounterSection from "./body/CounterSection";
-import NewsSection from "./body/NewsSection";
-import ContactSection from "./body/ContactSection";
 import FooterSection from "../../components/FooterSection";
 import User from "../../../../domain/model/User";
 import { auth } from '../../../../data/firebase/FirebaseConfig';
@@ -33,6 +28,12 @@ import LoginDialog from './auth/LoginDialog';
 import RegisterDialog from './auth/RegisterDialog';
 import { useLanguage } from '../../../../context/LanguageContext';
 import { Language } from '../../../../types/LanguageTypes';
+
+const NewsSection = lazy(() => import('./body/NewsSection'));
+const ProjectsSection = lazy(() => import('./body/ProjectsSection'));
+const CounterSection = lazy(() => import('./body/CounterSection'));
+const SocialResponses = lazy(() => import('./body/SocialResponses'));
+const ContactSection = lazy(() => import('./body/ContactSection'));
 
 const HomePage: React.FC = () => {
     const { language } = useLanguage() as { language: Language };
@@ -172,8 +173,8 @@ const HomePage: React.FC = () => {
                     {/* Main Content Container */}
                     <Box sx={{
                         pt: {
-                            xs: '92px',
-                            sm: '116px'
+                            xs: '126px',
+                            sm: '186px'
                         }
                     }}>
                         {/* Preloader */}
@@ -207,7 +208,9 @@ const HomePage: React.FC = () => {
                                 py: { xs: 4, sm: 6, md: 8 },
                                 px: { xs: 2, sm: 3, md: 4 }
                             }}>
-                                <SocialResponses/>
+                                <Suspense fallback={<LoadingOverlay />}>
+                                    <SocialResponses />
+                                </Suspense>
                             </Container>
 
                             {/* Second Parallax - Responsive */}
@@ -225,12 +228,16 @@ const HomePage: React.FC = () => {
                                 py: { xs: 4, sm: 6, md: 8 },
                                 px: { xs: 2, sm: 3, md: 4 }
                             }}>
-                                <ProjectsSection/>
+                                <Suspense fallback={<LoadingOverlay />}>
+                                    <ProjectsSection />
+                                </Suspense>
                             </Container>
 
                             {/* Counter Section - Responsive */}
                             <Box sx={{ my: { xs: 4, sm: 6, md: 8 } }}>
-                                <CounterSection/>
+                                <Suspense fallback={<LoadingOverlay />}>
+                                    <CounterSection />
+                                </Suspense>
                             </Box>
 
                             {/* News Section - Responsive */}
@@ -238,7 +245,9 @@ const HomePage: React.FC = () => {
                                 py: { xs: 4, sm: 6, md: 8 },
                                 px: { xs: 2, sm: 3, md: 4 }
                             }}>
-                                <NewsSection/>
+                                <Suspense fallback={<LoadingOverlay />}>
+                                    <NewsSection />
+                                </Suspense>
                             </Container>
 
                             {/* Third Parallax - Responsive */}
@@ -256,7 +265,9 @@ const HomePage: React.FC = () => {
                                 py: { xs: 4, sm: 6, md: 8 },
                                 px: { xs: 2, sm: 3, md: 4 }
                             }}>
-                                <ContactSection/>
+                                <Suspense fallback={<LoadingOverlay />}>
+                                    <ContactSection />
+                                </Suspense>
                             </Container>
 
                             {/* Footer - Only show on desktop */}

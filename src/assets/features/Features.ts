@@ -52,13 +52,11 @@ import Color from "../../theme/Color";
 import {Work, ChildCare, BabyChangingStation, Elderly, Article, CalendarToday, Photo, Folder} from '@mui/icons-material';
 
 import logoQualifica from '../img/component/logo_qualifica.jpg';
-import { TranslatedText } from '../../types/LanguageTypes';
 
 import moveTop from '../img/background/move_top.jpg';
 import move from '../img/background/move.jpg';
 
 export const Features = {
-
     //---------HOME SCREEN FEATURES---------//
     CAROUSEL: {
         items: [
@@ -474,7 +472,7 @@ export const Features = {
         breadcrumbs: [
             { 
                 label: { pt: "Home", en: "Home" }, 
-                link: "/home" 
+                link: "/"
             },
             { 
                 label: { pt: "Órgãos Sociais", en: "Social Bodies" }, 
@@ -528,7 +526,7 @@ export const Features = {
         breadcrumbs: [
             { 
                 label: { pt: "Home", en: "Home" }, 
-                link: "/home" 
+                link: "/"
             },
             { 
                 label: { pt: "Política da Qualidade", en: "Quality Policy" }, 
@@ -578,7 +576,7 @@ export const Features = {
         breadcrumbs: [
             { 
                 label: { pt: "Home", en: "Home" }, 
-                link: "/home" 
+                link: "/"
             },
             { 
                 label: { pt: "Documentos Institucionais", en: "Institutional Documents" }, 
@@ -1092,7 +1090,7 @@ export const Features = {
         breadcrumbs: [
             { 
                 label: { pt: "Home", en: "Home" }, 
-                link: "/home" 
+                link: "/"
             },
             { 
                 label: { pt: "Jardim Infância", en: "Kindergarten" }, 
@@ -1131,7 +1129,7 @@ export const Features = {
         breadcrumbs: [
             { 
                 label: { pt: "Home", en: "Home" }, 
-                link: "/home" 
+                link: "/"
             },
             { 
                 label: { pt: "Creche", en: "Nursery" }, 
@@ -1170,7 +1168,7 @@ export const Features = {
         breadcrumbs: [
             { 
                 label: { pt: "Home", en: "Home" }, 
-                link: "/home" 
+                link: "/"
             },
             { 
                 label: { pt: "CATL", en: "CATL" }, 
@@ -1209,7 +1207,7 @@ export const Features = {
         breadcrumbs: [
             { 
                 label: { pt: "Home", en: "Home" }, 
-                link: "/home" 
+                link: "/"
             },
             { 
                 label: { pt: "Lar S. Lourenço", en: "S. Lourenço Home" }, 
@@ -1248,7 +1246,7 @@ export const Features = {
         breadcrumbs: [
             { 
                 label: { pt: "Home", en: "Home" }, 
-                link: "/home" 
+                link: "/"
             },
             { 
                 label: { pt: "Apoio Domiciliário", en: "Home Care" }, 
@@ -1287,7 +1285,7 @@ export const Features = {
         breadcrumbs: [
             { 
                 label: { pt: "Home", en: "Home" }, 
-                link: "/home" 
+                link: "/"
             },
             { 
                 label: { pt: "Formação e Emprego", en: "Training and Employment" }, 
@@ -1326,7 +1324,7 @@ export const Features = {
         breadcrumbs: [
             { 
                 label: { pt: "Home", en: "Home" }, 
-                link: "/home" 
+                link: "/"
             },
             { 
                 label: { pt: "ESCOLHAS 7G", en: "ESCOLHAS 7G" }, 
@@ -1357,7 +1355,7 @@ export const Features = {
         breadcrumbs: [
             { 
                 label: { pt: "Home", en: "Home" }, 
-                link: "/home" 
+                link: "/"
             },
             { 
                 label: { pt: "SAAS", en: "SAAS" }, 
@@ -1391,7 +1389,7 @@ export const Features = {
         breadcrumbs: [
             { 
                 label: { pt: "Home", en: "Home" }, 
-                link: "/home" 
+                link: "/"
             },
             { 
                 label: { pt: "Intercâmbio Jovem", en: "Youth Exchange" }, 
@@ -1426,7 +1424,7 @@ export const Features = {
         breadcrumbs: [
             { 
                 label: { pt: "Home", en: "Home" }, 
-                link: "/home" 
+                link: "/"
             },
             { 
                 label: { pt: "Projeto MOVE", en: "MOVE Project" }, 
@@ -1458,7 +1456,7 @@ export const Features = {
         breadcrumbs: [
             { 
                 label: { pt: "Home", en: "Home" }, 
-                link: "/home" 
+                link: "/"
             },
             { 
                 label: { pt: "CLDS4G", en: "CLDS4G" }, 
@@ -1568,7 +1566,7 @@ export const Features = {
         breadcrumbs: [
             { 
                 label: { pt: "Home", en: "Home" }, 
-                link: "/home" 
+                link: "/"
             },
             { 
                 label: { pt: "E2OV", en: "E2OV" }, 
@@ -1605,7 +1603,7 @@ export const Features = {
     CONTACTS: {
         topImage: history,
         breadcrumbs: [
-            { label: "Home", link: "/home" },
+            { label: "Home", link: "/" },
             { label: "Contacts", link: "/contactos" },
         ]
     },
@@ -1615,7 +1613,7 @@ export const Features = {
         breadcrumbs: [
             { 
                 label: { pt: "Home", en: "Home" }, 
-                link: "/home" 
+                link: "/"
             },
             { 
                 label: { pt: "Projectos Cofinanciados", en: "Co-financed Projects" }, 
@@ -1679,7 +1677,7 @@ export const Features = {
         breadcrumbs: [
             { 
                 label: { pt: "Home", en: "Home" }, 
-                link: "/home" 
+                link: "/"
             },
             { 
                 label: { pt: "Centro Qualifica", en: "Qualifica Center" }, 

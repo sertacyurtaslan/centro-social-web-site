@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Box, Container, Grid, Typography, Avatar, Skeleton, CircularProgress } from '@mui/material';
-import { collection, query, orderBy, getDocs } from 'firebase/firestore';
+import { collection, query, orderBy, getDocs, limit } from 'firebase/firestore';
 import { db } from '../../../../../data/firebase/FirebaseConfig';
 import { Volunteer } from '../../../../../types/VolunteerTypes';
 import { useLanguage } from '../../../../../context/LanguageContext';
@@ -14,7 +14,11 @@ export const VolunteersSection = () => {
         const fetchVolunteers = async () => {
             try {
                 const volunteersRef = collection(db, 'volunteers');
-                const q = query(volunteersRef, orderBy('createdAt', 'desc'));
+                const q = query(
+                    volunteersRef, 
+                    orderBy('createdAt', 'desc'),
+                    limit(10)
+                );
                 const querySnapshot = await getDocs(q);
                 
                 const volunteersData = querySnapshot.docs.map(doc => ({

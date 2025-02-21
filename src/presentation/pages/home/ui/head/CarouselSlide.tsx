@@ -20,12 +20,12 @@ interface CarouselSlideProps {
 }
 
 export default function CarouselSlide({
-                                          children,
-                                          autoSlide = false,
-                                          autoSlideInterval = 7500,
-                                          texts,
-                                          cardGridComponent,
-                                      }: CarouselSlideProps) {
+                                    children,
+                                    autoSlide = false,
+                                    autoSlideInterval = 7500,
+                                    texts,
+                                    cardGridComponent,
+                                }: CarouselSlideProps) {
     const { language } = useLanguage();
     const [curr, setCurr] = useState(0);
     const [mainTextAnimation, setMainTextAnimation] = useState(false);
@@ -212,15 +212,17 @@ export default function CarouselSlide({
             <Box
                 sx={{
                     position: "absolute",
-                    top: "50%",
+                    top: "50%",  // This centers vertically
                     left: 0,
                     right: 0,
                     display: { xs: "none", sm: "flex" },
                     justifyContent: "space-between",
                     alignItems: "center",
                     px: { sm: 2, md: 3 },
-                    transform: "translateY(-50%)", // Center vertically
-                    zIndex: 2, // Ensure arrows are above the overlay
+                    transform: "translateY(-50%)", // This ensures perfect centering
+                    zIndex: 2,
+                    height: "0", // Add this to ensure the Box doesn't affect layout
+                    pointerEvents: "none" // Add this so the Box doesn't interfere with other interactions
                 }}
             >
                 <IconButton
@@ -230,6 +232,7 @@ export default function CarouselSlide({
                         color: "gray",
                         "&:hover": { backgroundColor: "white" },
                         padding: { xs: "6px", sm: "8px", md: "12px" },
+                        pointerEvents: "auto" // Re-enable pointer events for the button
                     }}
                 >
                     <ChevronLeft size={24} />
@@ -241,6 +244,7 @@ export default function CarouselSlide({
                         color: "gray",
                         "&:hover": { backgroundColor: "white" },
                         padding: { xs: "6px", sm: "8px", md: "12px" },
+                        pointerEvents: "auto" // Re-enable pointer events for the button
                     }}
                 >
                     <ChevronRight size={24} />
